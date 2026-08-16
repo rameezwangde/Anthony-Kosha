@@ -1,64 +1,51 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* ─── Exact Color Palette from A&K Logo Crest ─── */
+  /* ─── Palette (exact from reference image) ─── */
+  --bg-ivory: #FBF7F0;
+  --bg-paper: #FFFFFF;
+  --bg-card-muted: #F8F4ED;
   
-  /* 1. Deep Royal Sapphire Navy (Outer canvas & ring detail) */
-  --midnight: #071020;
-  --midnight-card: #0d1a30;
-  --midnight-light: #142542;
-  
-  /* 2. Velvet Crimson & Jewel Magenta (Central velvet emblem & crystal drop gems) */
-  --ruby: #7d0b2e;
-  --ruby-bright: #b81446;
-  --ruby-accent: #d81d58;
-  --ruby-glow: rgba(184, 20, 70, 0.28);
+  --burgundy: #76052D;
+  --burgundy-hover: #5c0322;
+  --burgundy-glow: rgba(118, 5, 45, 0.15);
 
-  /* 3. Polished Imperial Gold (A&K Monogram, Golden Peacocks, Filigree Frames) */
-  --gold: #e5bb65;
-  --gold-light: #f7dc98;
-  --gold-dark: #c29433;
-  --gold-pale: #fdf7e7;
-  --gold-glow: rgba(229, 187, 101, 0.25);
-  --gold-border: rgba(229, 187, 101, 0.4);
+  --navy: #071E3D;
+  --navy-muted: #1A3254;
 
-  /* 4. Warm Pearl Silk & Ivory (Peacock Pearl Feather details) */
-  --ivory: #fbf8f2;
-  --ivory-card: #ffffff;
-  --paper-cream: #f5eedf;
-  
-  /* 5. Typography Neutral Ink */
-  --ink: #1a1417;
-  --ink-muted: #5e5156;
-  --ink-light: #8c7e84;
+  --gold: #C99A45;
+  --gold-soft: #E5C278;
+  --gold-pale: #F4E8D0;
+  --gold-border: #E8D5B7;
 
-  /* ─── Fonts ─── */
+  --text-primary: #071E3D;
+  --text-muted: #665A5E;
+  --text-light: #8E8286;
+
+  /* ─── Typography ─── */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-script: 'Pinyon Script', cursive;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
-  /* ─── Radii ─── */
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  /* ─── Radii & Borders ─── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-pill: 999px;
 
+  --border-light: 1px solid #EAE0D0;
+  --border-gold: 1px solid #E0CFA6;
+
   /* ─── Shadows ─── */
-  --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 12px 36px rgba(7, 16, 32, 0.08);
-  --shadow-lg: 0 24px 60px rgba(7, 16, 32, 0.16);
-  --shadow-gold: 0 16px 40px rgba(229, 187, 101, 0.25);
-  --shadow-ruby: 0 16px 40px rgba(184, 20, 70, 0.3);
+  --shadow-subtle: 0 4px 20px rgba(7, 30, 61, 0.04);
+  --shadow-card: 0 8px 30px rgba(7, 30, 61, 0.06);
+  --shadow-burgundy: 0 8px 24px rgba(118, 5, 45, 0.25);
 
   /* ─── Transitions ─── */
-  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 0.25s var(--ease-luxury);
-  --transition-normal: 0.4s var(--ease-luxury);
-  --transition-slow: 0.7s var(--ease-luxury);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.3s var(--ease-smooth);
 }
 
-/* ─── Reset & Base ─── */
+/* Reset & Global */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -72,68 +59,70 @@ html {
 
 body {
   font-family: var(--font-sans);
-  color: var(--ink);
-  background-color: var(--ivory);
+  color: var(--text-primary);
+  background-color: var(--bg-ivory);
   min-height: 100vh;
   line-height: 1.6;
   font-size: 15px;
   overflow-x: hidden;
 }
 
-/* ─── Typography ─── */
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  color: var(--navy);
+  line-height: 1.15;
 }
 
-.script-text {
-  font-family: var(--font-script);
-  font-weight: 400;
-  color: var(--gold-light);
+/* Common Section Container */
+.site-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-/* ─── Utilities ─── */
-.gold-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 18px;
-  border-radius: var(--radius-pill);
-  background: rgba(229, 187, 101, 0.12);
-  border: 1px solid var(--gold-border);
-  color: var(--gold-light);
+/* Section Header Styles */
+.section-tag {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-}
-
-.section-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ruby-bright);
-  display: inline-block;
+  color: var(--burgundy);
+  display: block;
   margin-bottom: 6px;
 }
 
-.section-title {
+.section-heading-large {
   font-family: var(--font-serif);
-  font-size: clamp(32px, 4vw, 52px);
-  color: var(--midnight);
+  font-size: clamp(34px, 4vw, 48px);
   font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 8px;
 }
 
-/* ─── Scrollbar ─── */
+.section-subtext {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 520px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeIn 0.6s var(--ease-smooth) both;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--midnight);
+  background: var(--bg-ivory);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--gold);

@@ -1,90 +1,51 @@
-import { useState } from 'react';
 import './RoomCard.css';
 
 export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
-  const [imgLoaded, setImgLoaded] = useState(false);
+  // Determine guest icon text and bed type tag
+  const isSingle = room.value.toLowerCase().includes('single');
+  const guestIconText = isSingle ? '1 Guest' : '2 Guests';
+  const bedText = room.tags?.find(t => t.toLowerCase().includes('bed')) || (isSingle ? 'King Bed' : 'Twin Beds');
 
   return (
-    <article
-      className={`luxury-room-card ${isSelected ? 'selected' : ''}`}
-      onClick={(e) => {
-        if (e.target.closest('.photo-quick-view-btn')) return;
-        onSelect();
-      }}
-      tabIndex={0}
-      role="button"
-      aria-pressed={isSelected}
+    <div
+      className={`ref-horizontal-room-card ${isSelected ? 'selected' : ''}`}
+      onClick={onSelect}
     >
-      {/* Photo Container */}
-      <div className="room-photo-box">
-        {!imgLoaded && <div className="photo-skeleton" />}
-        <img
-          src={room.img}
-          alt={room.name}
-          loading="lazy"
-          onLoad={() => setImgLoaded(true)}
-          style={{ opacity: imgLoaded ? 1 : 0 }}
-        />
-        <div className="photo-overlay-gradient" />
+      {/* Left Image Column (approx 38-42% width) */}
+      <div className="ref-room-img-col">
+        <img src={room.img} alt={room.name} className="ref-room-img" />
+      </div>
 
-        {/* Category Pill */}
-        <span className="room-category-pill">{room.category}</span>
-
-        {/* Price Tag Overlay */}
-        <div className="photo-price-badge">
-          <span className="badge-rate">{room.priceDisplay}</span>
+      {/* Right Info Column */}
+      <div className="ref-room-info-col">
+        {/* Top Right Circular Selection Indicator */}
+        <div className={`ref-room-circle-check ${isSelected ? 'selected' : ''}`}>
+          {isSelected && <span>✓</span>}
         </div>
 
-        {/* Quick View Button */}
+        <div className="ref-room-category">{room.category} ROOM</div>
+        <h4 className="ref-room-name">{room.name}</h4>
+
+        {/* Person & Bed Icons Row */}
+        <div className="ref-room-meta-row">
+          <span className="meta-item">👤 {guestIconText}</span>
+          <span className="meta-item">🛏 {bedText}</span>
+        </div>
+
+        <p className="ref-room-desc">{room.desc}</p>
+
+        {/* View Gallery Link */}
         <button
           type="button"
-          className="photo-quick-view-btn"
+          className="ref-view-gallery-btn"
           onClick={(e) => {
             e.stopPropagation();
             onViewPhoto();
           }}
-          title="View High-Res Photo"
         >
-          🔍 View Photo
+          View Gallery →
         </button>
-
-        {/* Selection Indicator Badge */}
-        {isSelected && (
-          <div className="room-selected-badge">
-            <span>✓ Selected</span>
-          </div>
-        )}
       </div>
-
-      {/* Content */}
-      <div className="room-card-details">
-        <div className="room-title-price-row">
-          <h4 className="room-title">{room.name}</h4>
-          <div className="room-price-block">
-            <span className="price-tag-large">{room.priceDisplay}</span>
-            <span className="price-fee-note">{room.feeNote}</span>
-          </div>
-        </div>
-
-        <p className="room-desc">{room.desc}</p>
-
-        {/* Feature Tags */}
-        <div className="room-tags-row">
-          {room.tags?.map((tag, i) => (
-            <span key={i} className="room-tag-pill">{tag}</span>
-          ))}
-        </div>
-
-        {/* Select Action */}
-        <div className="room-card-action">
-          <button
-            type="button"
-            className={`room-select-btn ${isSelected ? 'active' : ''}`}
-          >
-            {isSelected ? '✓ Selected for Booking' : 'Select Room Category'}
-          </button>
-        </div>
-      </div>
-    </article>
+    </div>
   );
 }

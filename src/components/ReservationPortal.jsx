@@ -6,236 +6,132 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     guestName: '',
     phone: '',
     email: '',
-    guestCount: '2 Guests',
-    checkIn: '2026-11-24',
-    checkOut: '2026-11-27',
+    guestCount: '',
+    checkIn: '',
+    checkOut: '',
     requests: '',
   });
-
-  const [showSummary, setShowSummary] = useState(false);
-  const [summaryText, setSummaryText] = useState('');
-
-  // Calculate stay duration in nights
-  const stayNights = useMemo(() => {
-    if (!formData.checkIn || !formData.checkOut) return 0;
-    const start = new Date(formData.checkIn);
-    const end = new Date(formData.checkOut);
-    const diffTime = end - start;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? diffDays : 0;
-  }, [formData.checkIn, formData.checkOut]);
-
-  // Calculate total price if priceNum exists
-  const totalPrice = useMemo(() => {
-    if (!selectedRoom?.priceNum || stayNights <= 0) return null;
-    return selectedRoom.priceNum * stayNights;
-  }, [selectedRoom, stayNights]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleGuestPillClick = (count) => {
-    setFormData((prev) => ({ ...prev, guestCount: count }));
-  };
+  const hasPaymentUrl = !!selectedRoom?.paymentUrl;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!selectedRoom) {
-      alert('Please select a room category first.');
-      document.getElementById('rooms')?.scrollIntoView({ behavior: 'smooth' });
+      alert('Please select a room first.');
+      document.getElementById('rooms-section')?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
 
-    if (new Date(formData.checkOut) <= new Date(formData.checkIn)) {
+    if (formData.checkIn && formData.checkOut && new Date(formData.checkOut) <= new Date(formData.checkIn)) {
       alert('Please select a check-out date that is after your check-in date.');
       return;
     }
 
-    const priceSummary = totalPrice
-      ? `Estimated Rate: ${totalPrice.toLocaleString()} AED (${stayNights} nights @ ${selectedRoom.priceNum} AED/night) + card processing charges`
-      : `Rate: ${selectedRoom.priceDisplay} (${selectedRoom.feeNote})`;
-
-    const summary = `ANTHONY & KOSHA · WEDDING RESERVATION
-
-Dedicated Hotel: ${hotelName}
-Room Category: ${selectedRoom.value}
-${priceSummary}
-
-Guest Name: ${formData.guestName}
-Guests: ${formData.guestCount}
-Mobile / WhatsApp: ${formData.phone}
-Email: ${formData.email}
-Check-In Date: ${formData.checkIn}
-Check-Out Date: ${formData.checkOut} (${stayNights} Nights)
-Special Requests: ${formData.requests || 'None'}`;
-
-    setSummaryText(summary);
-    setShowSummary(true);
-  };
-
-  const hasPaymentUrl = !!selectedRoom?.paymentUrl;
-
-  const handlePaymentClick = (e) => {
-    if (!hasPaymentUrl) {
-      e.preventDefault();
-      alert(`The official payment link for ${hotelName} is pending update by event organizers.`);
+    if (hasPaymentUrl) {
+      window.open(selectedRoom.paymentUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      alert('Room selection saved! The official payment gateway link is pending activation.');
     }
   };
 
+  // Format date helper for the right card
+  const formatDateDisplay = (dateStr, fallbackText) => {
+    if (!dateStr) return { main: fallbackText, sub: 'Select Date' };
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return { main: dateStr, sub: '' };
+    const dayNum = d.getDate();
+    const monthStr = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+    const yearStr = d.getFullYear();
+    const weekdayStr = d.toLocaleString('en-US', { weekday: 'long' });
+    return {
+      main: `${dayNum} ${monthStr} ${yearStr}`,
+      sub: weekdayStr,
+    };
+  };
+
+  const checkInDisplay = formatDateDisplay(formData.checkIn || '2026-11-24', '24 NOV 2026');
+  const checkOutDisplay = formatDateDisplay(formData.checkOut || '2026-11-27', '27 NOV 2026');
+
+  // Room thumbnail
+  const roomThumbnail = selectedRoom?.img || "https://www.hilton.com/im/en/DXBAHHI/22071978/dxbah-room-bedroom.jpg?ch=2992&cw=5000&gravity=NorthWest&impolicy=crop&rh=700&rw=1100&xposition=0&yposition=171";
+
   return (
-    <section className="portal-section" id="portal">
-      <div className="portal-container">
-        <div className="section-header">
-          <span className="section-label">Step 3 &amp; 4 · Dedicated Checkout</span>
-          <h2 className="section-title">{hotelName.split(' ')[0]} Reservation Form</h2>
-          <p className="section-subtitle">
-            Complete your stay details below for <strong>{hotelName}</strong>. Standard rates: Deluxe Single 800 AED / Deluxe Double 875 AED per night.
-          </p>
-        </div>
+    <section className="reservation-section" id="reservation-section">
+      <div className="site-container">
+        <div className="ref-reservation-layout">
+          {/* Left Column (~68% width): Reservation Form */}
+          <div className="ref-form-card">
+            <span className="section-tag">03 · YOUR RESERVATION</span>
+            <h2 className="section-heading-large">Complete Your Stay</h2>
+            <p className="form-subtext">Just a few details before we take you to secure payment.</p>
 
-        <div className="portal-split-layout">
-          {/* Left Column: Live Stay Summary & Price Breakdown */}
-          <div className="portal-card booking-summary-card">
-            <div className="card-header">
-              <span className="card-tag">{hotelName.split(' ')[0]} Selection</span>
-              <h3>Live Stay Summary</h3>
-            </div>
-
-            {selectedRoom ? (
-              <div className="active-selection-box">
-                <div className="selection-img-wrap">
-                  <img src={selectedRoom.img} alt={selectedRoom.name} />
+            <form onSubmit={handleSubmit} className="ref-guest-form">
+              <div className="form-grid-2col">
+                <div className="form-field-group">
+                  <label htmlFor="guestName">GUEST NAME</label>
+                  <input
+                    id="guestName"
+                    type="text"
+                    required
+                    placeholder="Full name"
+                    value={formData.guestName}
+                    onChange={handleChange}
+                  />
                 </div>
-                <div className="selection-info">
-                  <span className="hotel-name-badge">{hotelName}</span>
-                  <h4 className="selected-room-name">{selectedRoom.name}</h4>
 
-                  {/* Price Rate Highlight Box */}
-                  <div className="live-rate-highlight">
-                    <div className="rate-amount-line">
-                      <span className="rate-lbl">Nightly Rate:</span>
-                      <strong className="rate-val">{selectedRoom.priceDisplay}</strong>
-                    </div>
-                    <span className="rate-card-fee">* {selectedRoom.feeNote}</span>
-
-                    {totalPrice && (
-                      <div className="calculated-total-row">
-                        <span>Estimated Total ({stayNights} Nights):</span>
-                        <strong>{totalPrice.toLocaleString()} AED</strong>
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="selected-room-desc">{selectedRoom.desc}</p>
-                </div>
-              </div>
-            ) : (
-              <div className="no-selection-placeholder">
-                <div className="placeholder-icon">🏨</div>
-                <h4>Select a Room for {hotelName.split(' ')[0]}</h4>
-                <p>Choose between Deluxe Single (800 AED) or Deluxe Double (875 AED) above.</p>
-                <button
-                  type="button"
-                  className="placeholder-select-btn"
-                  onClick={() => document.getElementById('rooms')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  View Room Rates ↑
-                </button>
-              </div>
-            )}
-
-            {/* Payment Section */}
-            <div className="payment-action-block">
-              <div className="payment-guarantee-note">
-                🔒 <span>SSL Encrypted Checkout · Direct to Hotel</span>
-              </div>
-
-              <a
-                className={`portal-payment-btn ${!hasPaymentUrl ? 'disabled' : ''}`}
-                href={hasPaymentUrl ? selectedRoom.paymentUrl : '#'}
-                target={hasPaymentUrl ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                onClick={handlePaymentClick}
-              >
-                {hasPaymentUrl ? `Pay via ${hotelName.split(' ')[0]} Checkout ↗` : 'Payment Link Pending'}
-              </a>
-
-              <div className="payment-terms-fine">
-                Deluxe Single: 800 AED/night · Deluxe Double: 875 AED/night (+ card charges)
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Dedicated Hotel Reservation Form */}
-          <div className="portal-card guest-form-card">
-            <div className="card-header">
-              <span className="card-tag">Dedicated Form</span>
-              <h3>{hotelName.split(' ')[0]} Guest Reservation</h3>
-            </div>
-
-            <form onSubmit={handleSubmit} className="luxury-form">
-              <div className="form-group">
-                <label htmlFor="guestName">Guest Full Name *</label>
-                <input
-                  id="guestName"
-                  type="text"
-                  required
-                  placeholder="e.g. John Smith"
-                  value={formData.guestName}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="phone">Mobile / WhatsApp *</label>
+                <div className="form-field-group">
+                  <label htmlFor="phone">MOBILE / WHATSAPP</label>
                   <input
                     id="phone"
                     type="tel"
                     required
-                    placeholder="+971 50 000 0000"
+                    placeholder="+971 / international number"
                     value={formData.phone}
                     onChange={handleChange}
                   />
                 </div>
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email Address *</label>
+              <div className="form-grid-2col">
+                <div className="form-field-group">
+                  <label htmlFor="email">EMAIL</label>
                   <input
                     id="email"
                     type="email"
                     required
-                    placeholder="guest@example.com"
+                    placeholder="name@example.com"
                     value={formData.email}
                     onChange={handleChange}
                   />
                 </div>
-              </div>
 
-              {/* Guest Count Pill Selector */}
-              <div className="form-group">
-                <label>Number of Guests *</label>
-                <div className="guest-pills-row">
-                  {['1 Guest', '2 Guests', '3 Guests', '4 Guests', '5+ Guests'].map((pill) => (
-                    <button
-                      key={pill}
-                      type="button"
-                      className={`guest-pill ${formData.guestCount === pill ? 'active' : ''}`}
-                      onClick={() => handleGuestPillClick(pill)}
-                    >
-                      {pill}
-                    </button>
-                  ))}
+                <div className="form-field-group">
+                  <label htmlFor="guestCount">NUMBER OF GUESTS</label>
+                  <select
+                    id="guestCount"
+                    required
+                    value={formData.guestCount}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select</option>
+                    <option value="1 Guest">1 Guest</option>
+                    <option value="2 Guests">2 Guests</option>
+                    <option value="3 Guests">3 Guests</option>
+                    <option value="4 Guests">4 Guests</option>
+                    <option value="5+ Guests">5+ Guests</option>
+                  </select>
                 </div>
               </div>
 
-              {/* Check-In / Check-Out */}
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="checkIn">Check-In Date *</label>
+              <div className="form-grid-2col">
+                <div className="form-field-group">
+                  <label htmlFor="checkIn">CHECK-IN</label>
                   <input
                     id="checkIn"
                     type="date"
@@ -245,8 +141,8 @@ Special Requests: ${formData.requests || 'None'}`;
                   />
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="checkOut">Check-Out Date *</label>
+                <div className="form-field-group">
+                  <label htmlFor="checkOut">CHECK-OUT</label>
                   <input
                     id="checkOut"
                     type="date"
@@ -257,39 +153,82 @@ Special Requests: ${formData.requests || 'None'}`;
                 </div>
               </div>
 
-              {stayNights > 0 && (
-                <div className="stay-duration-pill">
-                  ✨ Stay Duration: <strong>{stayNights} Nights</strong>
-                  {totalPrice && (
-                    <span className="total-est-tag"> · Total: {totalPrice.toLocaleString()} AED (+ card charges)</span>
-                  )}
-                </div>
-              )}
-
-              <div className="form-group">
-                <label htmlFor="requests">Special Requests (Optional)</label>
+              <div className="form-field-group full-width">
+                <label htmlFor="requests">SPECIAL REQUESTS</label>
                 <textarea
                   id="requests"
-                  placeholder="Connecting rooms, extra bed, accessibility, flight arrival time..."
+                  placeholder="Connecting rooms, children, extra bed, accessibility, airport arrival, etc."
                   value={formData.requests}
                   onChange={handleChange}
                 />
               </div>
 
-              <button type="submit" className="form-submit-btn">
-                Submit {hotelName.split(' ')[0]} Reservation Details
-              </button>
-            </form>
-
-            {showSummary && (
-              <div className="summary-drawer animate-in">
-                <div className="drawer-header">
-                  <h4>Reservation Details Preview</h4>
-                  <button type="button" onClick={() => setShowSummary(false)}>✕</button>
+              <div className="form-footer-bar">
+                <div className="security-note">
+                  🔒 <span>Your information is secure and protected.</span>
                 </div>
-                <pre>{summaryText}</pre>
+
+                <button type="submit" className="continue-payment-btn">
+                  Continue to Secure Payment →
+                </button>
               </div>
-            )}
+            </form>
+          </div>
+
+          {/* Right Column (~32% width): Deep Burgundy Booking Summary Card */}
+          <div className="ref-summary-card">
+            <div className="summary-title-row">
+              <h3>YOUR STAY</h3>
+              <div className="summary-gold-line" />
+            </div>
+
+            {/* Selected Hotel & Room Thumbnail Box */}
+            <div className="summary-property-box">
+              <img src={roomThumbnail} alt="Selected Room" className="summary-room-thumb" />
+              <div className="summary-property-info">
+                <h4>{hotelName}</h4>
+                <div className="summary-room-name">{selectedRoom ? selectedRoom.name : 'Select a Room Above'}</div>
+              </div>
+            </div>
+
+            <div className="summary-divider" />
+
+            {/* Check-In */}
+            <div className="summary-data-block">
+              <span className="summary-lbl">CHECK-IN</span>
+              <div className="summary-main-val">{checkInDisplay.main}</div>
+              <div className="summary-sub-val">{checkInDisplay.sub}</div>
+            </div>
+
+            <div className="summary-divider" />
+
+            {/* Check-Out */}
+            <div className="summary-data-block">
+              <span className="summary-lbl">CHECK-OUT</span>
+              <div className="summary-main-val">{checkOutDisplay.main}</div>
+              <div className="summary-sub-val">{checkOutDisplay.sub}</div>
+            </div>
+
+            <div className="summary-divider" />
+
+            {/* Guests */}
+            <div className="summary-data-block">
+              <span className="summary-lbl">GUESTS</span>
+              <div className="summary-main-val">{formData.guestCount || '2 Guests'}</div>
+            </div>
+
+            {/* Gold Action Button */}
+            <button
+              type="button"
+              className="summary-gold-cta-btn"
+              onClick={handleSubmit}
+            >
+              CONTINUE TO SECURE PAYMENT →
+            </button>
+
+            <div className="summary-footer-lock">
+              🔒 <span>Secure payment</span>
+            </div>
           </div>
         </div>
       </div>

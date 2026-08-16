@@ -1,49 +1,30 @@
-import { useState } from 'react';
 import RoomCard from './RoomCard';
 import { roomData } from '../data/roomData';
 import './RoomGrid.css';
 
 export default function RoomGrid({
   activeKey,
-  hotelName,
   selectedRoom,
   onSelectRoom,
   onViewPhoto,
 }) {
-  const [filterCategory, setFilterCategory] = useState('All');
   const rooms = roomData[activeKey] || [];
 
-  const filteredRooms = filterCategory === 'All'
-    ? rooms
-    : rooms.filter((r) => r.category === filterCategory);
-
   return (
-    <section className="room-grid-section" id="rooms">
-      <div className="grid-container">
-        <div className="grid-header">
-          <div>
-            <span className="section-label">Step 2 · Room Selection</span>
-            <h2 className="section-title">Explore {hotelName.split(' ')[0]} Rooms</h2>
-          </div>
-
-          {/* Filter Pills */}
-          <div className="category-filter-bar">
-            {['All', 'Deluxe', 'Suite'].map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                className={`filter-btn ${filterCategory === cat ? 'active' : ''}`}
-                onClick={() => setFilterCategory(cat)}
-              >
-                {cat === 'All' ? 'All Room Categories' : `${cat}s`}
-              </button>
-            ))}
-          </div>
+    <section className="room-section" id="rooms-section">
+      <div className="site-container">
+        {/* Section Header */}
+        <div className="room-section-header">
+          <span className="section-tag">02 · SELECT YOUR ROOM</span>
+          <h2 className="section-heading-large">Find Your Perfect Stay</h2>
+          <p className="section-subtext">
+            Thoughtfully selected rooms and suites for the celebration.
+          </p>
         </div>
 
-        {/* Room Cards Grid */}
-        <div className="editorial-rooms-grid">
-          {filteredRooms.map((room) => (
+        {/* 2 Column x 2 Row Grid */}
+        <div className="ref-rooms-grid">
+          {rooms.map((room) => (
             <RoomCard
               key={room.id}
               room={room}
@@ -52,6 +33,13 @@ export default function RoomGrid({
               onViewPhoto={() => onViewPhoto(room)}
             />
           ))}
+        </div>
+
+        {/* VIEW MORE ROOMS Outlined Button */}
+        <div className="view-more-rooms-wrap">
+          <button type="button" className="view-more-rooms-btn">
+            VIEW MORE ROOMS
+          </button>
         </div>
       </div>
     </section>
