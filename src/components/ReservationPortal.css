@@ -256,3 +256,47 @@
     width: 100%;
   }
 }
+
+/* -------------------------------------
+   Phone Input Customizations
+   ------------------------------------- */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #FBF7F0;
+  border: 1px solid #E5C278;
+  border-radius: 8px;
+  padding: 0 14px;
+  transition: var(--transition-normal);
+}
+
+.PhoneInput:focus-within {
+  border-color: #76052D;
+  box-shadow: 0 0 0 3px rgba(118, 5, 45, 0.12);
+  background: #ffffff;
+}
+
+.PhoneInputInput {
+  flex: 1;
+  padding: 12px 0 12px 14px;
+  border: none !important;
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: #071E3D;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.PhoneInputCountry {
+  padding-right: 14px;
+  border-right: 1px solid rgba(229, 194, 120, 0.4);
+}
+
+.PhoneInputCountryIcon {
+  width: 24px;
+  height: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+

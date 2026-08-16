@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import './ReservationPortal.css';
 
 export default function ReservationPortal({ selectedRoom, hotelName }) {
@@ -97,13 +99,14 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
 
                 <div className="form-field-group">
                   <label htmlFor="phone">MOBILE / WHATSAPP</label>
-                  <input
+                  <PhoneInput
                     id="phone"
-                    type="tel"
-                    required
-                    placeholder="+971 / international number"
+                    international
+                    defaultCountry="AE"
                     value={formData.phone}
-                    onChange={handleChange}
+                    onChange={(val) => setFormData(prev => ({ ...prev, phone: val }))}
+                    placeholder="Enter phone number"
+                    required
                   />
                 </div>
               </div>
