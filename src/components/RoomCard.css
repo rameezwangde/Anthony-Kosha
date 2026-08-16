@@ -23,7 +23,7 @@
 }
 
 .ref-room-img-col {
-  width: 40%;
+  width: 50%;
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
@@ -42,7 +42,7 @@
 }
 
 .ref-room-info-col {
-  width: 60%;
+  width: 50%;
   padding: 22px 24px;
   display: flex;
   flex-direction: column;
