@@ -89,6 +89,24 @@
   padding-right: 28px;
 }
 
+.ref-room-price-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.ref-room-price-display .price-main {
+  font-size: 16px;
+  font-weight: 600;
+  color: #76052D;
+}
+
+.ref-room-price-display .price-sub {
+  font-size: 11px;
+  color: #665A5E;
+}
+
 .ref-room-meta-row {
   display: flex;
   gap: 16px;

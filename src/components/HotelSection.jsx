@@ -2,9 +2,9 @@ import { hotelInfo } from '../data/roomData';
 import './HotelSection.css';
 
 export default function HotelSection({ activeKey, onSelect }) {
-  const hiltonImg = "https://www.hilton.com/im/en/DXBAHHI/22071978/dxbah-room-bedroom.jpg?ch=2992&cw=5000&gravity=NorthWest&impolicy=crop&rh=700&rw=1100&xposition=0&yposition=171";
-  const vhotelImg = "https://www.hilton.com/im/en/DXBVHQQ/20266740/king-deluxe-room-room-view.jpg?ch=2992&cw=5000&gravity=NorthWest&impolicy=crop&rh=700&rw=1100&xposition=0&yposition=171";
-  const habtoorImg = "https://www.hilton.com/im/en/DXBAHHI/22449022/dxbah-grand-canal-suite-bedroom-view.jpg?ch=2992&cw=5000&gravity=NorthWest&impolicy=crop&rh=700&rw=1100&xposition=0&yposition=171";
+  const hiltonImg = "https://www.valueaddedtravel.com/assets/components/phpthumbof/cache/exterior.baad4e193154fe2018b6b5b828f3f075.jpg";
+  const vhotelImg = "https://media-cdn.holidaycheck.com/w_1280,h_720,c_fit,q_auto,f_auto/ugc/images/83c4fa4e-570e-48be-9eb7-ecf52ffa5219";
+  const habtoorImg = "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/15/28/77/hotel-exterior.jpg?w=700&h=-1&s=1";
 
   const getHotelImg = (key) => {
     if (key === 'vhotel') return vhotelImg;

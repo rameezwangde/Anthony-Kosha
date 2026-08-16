@@ -55,8 +55,8 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     };
   };
 
-  const checkInDisplay = formatDateDisplay(formData.checkIn || '2026-11-24', '24 NOV 2026');
-  const checkOutDisplay = formatDateDisplay(formData.checkOut || '2026-11-27', '27 NOV 2026');
+  const checkInDisplay = formatDateDisplay(formData.checkIn, 'Select Date');
+  const checkOutDisplay = formatDateDisplay(formData.checkOut, 'Select Date');
 
   // Room thumbnail
   const roomThumbnail = selectedRoom?.img || "https://www.hilton.com/im/en/DXBAHHI/22071978/dxbah-room-bedroom.jpg?ch=2992&cw=5000&gravity=NorthWest&impolicy=crop&rh=700&rw=1100&xposition=0&yposition=171";
@@ -226,8 +226,21 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             {/* Guests */}
             <div className="summary-data-block">
               <span className="summary-lbl">GUESTS</span>
-              <div className="summary-main-val">{formData.guestCount || '2 Guests'}</div>
+              <div className="summary-main-val">{formData.guestCount || 'Select Guests'}</div>
             </div>
+
+            {/* Dynamic Guest Details */}
+            {(formData.guestName || formData.phone || formData.email) && (
+              <>
+                <div className="summary-divider" />
+                <div className="summary-data-block">
+                  <span className="summary-lbl">GUEST DETAILS</span>
+                  {formData.guestName && <div className="summary-main-val" style={{marginBottom: '4px'}}>{formData.guestName}</div>}
+                  {formData.phone && <div className="summary-sub-val" style={{color: '#EAE0D0', marginBottom: '2px'}}>{formData.phone}</div>}
+                  {formData.email && <div className="summary-sub-val" style={{color: '#EAE0D0'}}>{formData.email}</div>}
+                </div>
+              </>
+            )}
 
             {/* Gold Action Button */}
             <button

@@ -26,6 +26,12 @@ export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
         <div className="ref-room-category">{room.category} ROOM</div>
         <h4 className="ref-room-name">{room.name}</h4>
 
+        {/* Price Display */}
+        <div className="ref-room-price-display">
+          <span className="price-main">{room.priceDisplay}</span>
+          <span className="price-sub"> * + {room.feeNote}</span>
+        </div>
+
         {/* Person & Bed Icons Row */}
         <div className="ref-room-meta-row">
           <span className="meta-item">👤 {guestIconText}</span>
