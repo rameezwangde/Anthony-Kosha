@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Hero from './components/Hero';
 import ProgressBar from './components/ProgressBar';
 import HotelSection from './components/HotelSection';
@@ -6,10 +7,11 @@ import RoomGrid from './components/RoomGrid';
 import ReservationPortal from './components/ReservationPortal';
 import PhotoModal from './components/PhotoModal';
 import Footer from './components/Footer';
+import SuccessPage from './pages/SuccessPage';
 import { hotelInfo } from './data/roomData';
 import './App.css';
 
-function App() {
+function MainPage() {
   const [activeKey, setActiveKey] = useState('hilton');
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [modalState, setModalState] = useState({
@@ -69,9 +71,6 @@ function App() {
       {/* 5. Reservation Form & Deep Burgundy Booking Summary Card */}
       <ReservationPortal selectedRoom={selectedRoom} hotelName={currentHotelName} />
 
-      {/* 6. Footer */}
-      <Footer />
-
       {/* Lightbox Photo Modal */}
       <PhotoModal
         isOpen={modalState.isOpen}
@@ -81,6 +80,21 @@ function App() {
         onClose={handleClosePhotoModal}
       />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <div className="app-wrapper">
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/success" element={<SuccessPage />} />
+        </Routes>
+        {/* Footer is shared across routes */}
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

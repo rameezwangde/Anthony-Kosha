@@ -42,7 +42,9 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       // Build prefilled Stripe Checkout URL
       const separator = paymentUrl.includes('?') ? '&' : '?';
       const prefilledUrl = `${paymentUrl}${separator}prefilled_email=${encodeURIComponent(formData.email)}&client_reference_id=${encodeURIComponent(formData.guestName)}`;
-      window.open(prefilledUrl, '_blank', 'noopener,noreferrer');
+      
+      // Open in same tab so Stripe can redirect back to /success
+      window.location.href = prefilledUrl;
     } else {
       alert(`Room selection saved! The official payment gateway link is pending activation.`);
     }
