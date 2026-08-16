@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
+import PhoneInputPkg from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import './ReservationPortal.css';
+
+const PhoneInput = PhoneInputPkg.default || PhoneInputPkg;
 
 export default function ReservationPortal({ selectedRoom, hotelName }) {
   const [formData, setFormData] = useState({
@@ -100,13 +102,17 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
                 <div className="form-field-group">
                   <label htmlFor="phone">MOBILE / WHATSAPP</label>
                   <PhoneInput
-                    id="phone"
-                    international
-                    defaultCountry="AE"
+                    country={'ae'}
+                    enableSearch={true}
+                    disableSearchIcon={true}
+                    searchPlaceholder="Search country..."
                     value={formData.phone}
-                    onChange={(val) => setFormData(prev => ({ ...prev, phone: val }))}
-                    placeholder="Enter phone number"
-                    required
+                    onChange={phone => setFormData(prev => ({ ...prev, phone: '+' + phone }))}
+                    inputProps={{
+                      name: 'phone',
+                      required: true,
+                      id: 'phone'
+                    }}
                   />
                 </div>
               </div>
