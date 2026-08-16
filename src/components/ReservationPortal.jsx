@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import './ReservationPortal.css';
 
 export default function ReservationPortal({ selectedRoom, hotelName }) {
@@ -17,8 +17,6 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const hasPaymentUrl = !!selectedRoom?.paymentUrl;
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,19 +26,29 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       return;
     }
 
+    if (!formData.guestName.trim() || !formData.email.trim() || !formData.phone.trim()) {
+      alert('Please fill in your name, mobile, and email address before proceeding.');
+      return;
+    }
+
     if (formData.checkIn && formData.checkOut && new Date(formData.checkOut) <= new Date(formData.checkIn)) {
       alert('Please select a check-out date that is after your check-in date.');
       return;
     }
 
-    if (hasPaymentUrl) {
-      window.open(selectedRoom.paymentUrl, '_blank', 'noopener,noreferrer');
+    const paymentUrl = import.meta.env.VITE_STRIPE_PAYMENT_URL;
+
+    if (paymentUrl) {
+      // Build prefilled Stripe Checkout URL
+      const separator = paymentUrl.includes('?') ? '&' : '?';
+      const prefilledUrl = `${paymentUrl}${separator}prefilled_email=${encodeURIComponent(formData.email)}&client_reference_id=${encodeURIComponent(formData.guestName)}`;
+      window.open(prefilledUrl, '_blank', 'noopener,noreferrer');
     } else {
-      alert(`Room selection saved (${selectedRoom.name} - ${selectedRoom.priceDisplay})! The official payment gateway link is pending activation.`);
+      alert(`Room selection saved! The official payment gateway link is pending activation.`);
     }
   };
 
-  // Format date helper for the right card
+  // Format date helper for the summary card
   const formatDateDisplay = (dateStr, fallbackText) => {
     if (!dateStr) return { main: fallbackText, sub: 'Select Date' };
     const d = new Date(dateStr);
@@ -165,7 +173,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
 
               <div className="form-footer-bar">
                 <div className="security-note">
-                  🔒 <span>Your information is secure and protected.</span>
+                  🔒 <span>Your information is secure and protected by Stripe.</span>
                 </div>
 
                 <button type="submit" className="continue-payment-btn">
@@ -252,7 +260,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             </button>
 
             <div className="summary-footer-lock">
-              🔒 <span>Secure payment</span>
+              🔒 <span>Stripe 256-bit SSL Encrypted Payment</span>
             </div>
           </div>
         </div>
