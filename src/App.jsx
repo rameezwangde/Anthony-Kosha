@@ -60,6 +60,7 @@ function App() {
       {/* 4. Room Grid Section (2x2 Horizontal Cards) */}
       <RoomGrid
         activeKey={activeKey}
+        hotelName={currentHotelName}
         selectedRoom={selectedRoom}
         onSelectRoom={handleRoomSelect}
         onViewPhoto={handleOpenPhotoModal}

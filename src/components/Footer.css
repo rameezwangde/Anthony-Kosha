@@ -1,6 +1,6 @@
 .luxury-footer {
-  background: var(--midnight);
-  color: #fff;
+  background-color: var(--navy);
+  color: #ffffff;
   position: relative;
   overflow: hidden;
 }
@@ -9,100 +9,100 @@
   height: 2px;
   background: linear-gradient(
     90deg,
-    var(--ruby),
-    var(--gold-light),
+    var(--burgundy),
+    var(--gold-soft),
     var(--gold),
-    var(--ruby),
-    var(--gold-light),
+    var(--burgundy),
+    var(--gold-soft),
     var(--gold)
   );
   background-size: 200% 100%;
-  animation: shimmer 6s infinite linear;
 }
 
 .footer-container {
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 24px 40px;
+  padding: 60px 24px 30px;
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
+  gap: 48px;
+  margin-bottom: 40px;
 }
 
 .footer-monogram {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 500;
-  color: var(--gold-light);
+  color: var(--gold-soft);
   letter-spacing: 0.1em;
 }
 
 .footer-tagline {
-  font-family: var(--font-script);
-  font-size: 24px;
-  color: var(--gold);
-  margin-bottom: 12px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--gold-soft);
+  margin-bottom: 10px;
 }
 
 .footer-copy {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13.5px;
   line-height: 1.6;
   max-width: 360px;
 }
 
 .footer-heading {
   font-family: var(--font-serif);
-  font-size: 20px;
-  color: var(--gold-light);
-  margin-bottom: 20px;
+  font-size: 19px;
+  color: var(--gold-soft);
+  margin-bottom: 16px;
 }
 
 .footer-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .footer-list li {
   display: flex;
   flex-direction: column;
-  font-size: 13.5px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.85);
 }
 
 .footer-list li strong {
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .footer-list li span {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer-bottom {
   text-align: center;
-  padding-top: 30px;
-  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  padding-top: 24px;
+  border-top: 1px solid rgba(229, 194, 120, 0.2);
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer-symbol {
   color: var(--gold);
   font-size: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 @media (max-width: 860px) {
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
 }

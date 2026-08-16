@@ -4,6 +4,7 @@ import './RoomGrid.css';
 
 export default function RoomGrid({
   activeKey,
+  hotelName,
   selectedRoom,
   onSelectRoom,
   onViewPhoto,
@@ -13,12 +14,12 @@ export default function RoomGrid({
   return (
     <section className="room-section" id="rooms-section">
       <div className="site-container">
-        {/* Section Header */}
+        {/* Section Header with Active Hotel Name */}
         <div className="room-section-header">
-          <span className="section-tag">02 · SELECT YOUR ROOM</span>
-          <h2 className="section-heading-large">Find Your Perfect Stay</h2>
+          <span className="section-tag">02 · SELECT YOUR ROOM · {hotelName?.toUpperCase()}</span>
+          <h2 className="section-heading-large">Find Your Stay at {hotelName}</h2>
           <p className="section-subtext">
-            Thoughtfully selected rooms and suites for the celebration.
+            Thoughtfully selected rooms and suites for Anthony &amp; Kosha's wedding celebration at {hotelName}.
           </p>
         </div>
 
@@ -38,7 +39,7 @@ export default function RoomGrid({
         {/* VIEW MORE ROOMS Outlined Button */}
         <div className="view-more-rooms-wrap">
           <button type="button" className="view-more-rooms-btn">
-            VIEW MORE ROOMS
+            VIEW MORE ROOMS AT {hotelName?.toUpperCase().split(' ')[0]}
           </button>
         </div>
       </div>
