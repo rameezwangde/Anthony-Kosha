@@ -9,7 +9,9 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Col 1: Brand & Monogram */}
           <div className="footer-col brand-col">
-            <div className="footer-monogram">A &amp; K</div>
+            <div className="footer-logo-wrap">
+              <img src="/logo.png" alt="Anthony & Kosha Crest" className="footer-logo-img" />
+            </div>
             <div className="footer-tagline">Four Days to Forever</div>
             <p className="footer-copy">
               We look forward to hosting you for an unforgettable celebration of love, laughter, and lifelong memories in Dubai.
