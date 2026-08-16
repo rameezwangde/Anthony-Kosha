@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import TopBar from './components/TopBar';
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import IntroSection from './components/IntroSection';
-import HotelSelector from './components/HotelSelector';
+import HotelShowcase from './components/HotelShowcase';
 import RoomGrid from './components/RoomGrid';
-import PaymentPanel from './components/PaymentPanel';
-import GuestForm from './components/GuestForm';
+import ReservationPortal from './components/ReservationPortal';
 import PhotoModal from './components/PhotoModal';
 import Footer from './components/Footer';
 import { hotelInfo } from './data/roomData';
@@ -23,7 +21,7 @@ function App() {
 
   const handleHotelSelect = (key) => {
     setActiveKey(key);
-    setSelectedRoom(null); // Reset selected room when hotel changes
+    setSelectedRoom(null); // Reset selected room when hotel switches
   };
 
   const handleRoomSelect = (room) => {
@@ -46,12 +44,11 @@ function App() {
   const currentHotelName = hotelInfo[activeKey].name;
 
   return (
-    <>
-      <TopBar />
+    <div className="app-root">
+      <Navbar activeHotelName={currentHotelName} selectedRoom={selectedRoom} />
       <Hero />
-      <main className="main-container">
-        <IntroSection />
-        <HotelSelector activeKey={activeKey} onSelect={handleHotelSelect} />
+      <main className="main-content">
+        <HotelShowcase activeKey={activeKey} onSelect={handleHotelSelect} />
         <RoomGrid
           activeKey={activeKey}
           hotelName={currentHotelName}
@@ -59,8 +56,7 @@ function App() {
           onSelectRoom={handleRoomSelect}
           onViewPhoto={handleOpenPhotoModal}
         />
-        <PaymentPanel selectedRoom={selectedRoom} hotelName={currentHotelName} />
-        <GuestForm selectedRoom={selectedRoom} hotelName={currentHotelName} />
+        <ReservationPortal selectedRoom={selectedRoom} hotelName={currentHotelName} />
       </main>
       <Footer />
 
@@ -71,7 +67,7 @@ function App() {
         caption={modalState.caption}
         onClose={handleClosePhotoModal}
       />
-    </>
+    </div>
   );
 }
 

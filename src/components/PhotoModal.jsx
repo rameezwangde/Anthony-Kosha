@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import './PhotoModal.css';
 
 export default function PhotoModal({ isOpen, image, title, caption, onClose }) {
-  // Lock body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -14,7 +13,6 @@ export default function PhotoModal({ isOpen, image, title, caption, onClose }) {
     };
   }, [isOpen]);
 
-  // Handle escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -31,23 +29,22 @@ export default function PhotoModal({ isOpen, image, title, caption, onClose }) {
 
   return (
     <div
-      className="modal show"
-      role="dialog"
-      aria-modal="true"
+      className="luxury-modal-backdrop"
       onClick={(e) => {
-        if (e.target.classList.contains('modal')) onClose();
+        if (e.target.classList.contains('luxury-modal-backdrop')) onClose();
       }}
     >
-      <div className="modal-card animate-in">
-        <button
-          className="close-btn"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          ×
+      <div className="luxury-modal-card animate-in">
+        <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close">
+          ✕
         </button>
-        <img src={image} alt={title} />
-        <div className="modal-caption">{caption}</div>
+        <div className="modal-image-container">
+          <img src={image} alt={title} />
+        </div>
+        <div className="modal-footer-meta">
+          <span className="modal-caption-text">{caption}</span>
+          <span className="modal-tag">Official Room Photo</span>
+        </div>
       </div>
     </div>
   );

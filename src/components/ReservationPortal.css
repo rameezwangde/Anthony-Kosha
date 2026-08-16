@@ -1,0 +1,330 @@
+.portal-section {
+  padding: 90px 0 110px;
+  background: var(--ivory);
+}
+
+.portal-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.portal-split-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.portal-card {
+  background: #fff;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  margin-bottom: 24px;
+}
+
+.card-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ruby-bright);
+}
+
+.card-header h3 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--midnight);
+  margin-top: 4px;
+}
+
+/* Left Card: Selection Box */
+.active-selection-box {
+  background: var(--paper-cream);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.selection-img-wrap {
+  height: 200px;
+  overflow: hidden;
+}
+
+.selection-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.selection-info {
+  padding: 20px;
+}
+
+.hotel-name-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--midnight);
+  color: var(--gold-light);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.selected-room-name {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--midnight);
+  margin-bottom: 6px;
+}
+
+.selected-room-desc {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.no-selection-placeholder {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--paper-cream);
+  border: 2px dashed rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-lg);
+  margin-bottom: 28px;
+}
+
+.placeholder-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.no-selection-placeholder h4 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--midnight);
+}
+
+.no-selection-placeholder p {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  margin: 6px 0 18px;
+}
+
+.placeholder-select-btn {
+  padding: 10px 20px;
+  background: var(--ruby-bright);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Payment Action */
+.payment-action-block {
+  text-align: center;
+}
+
+.payment-guarantee-note {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 14px;
+}
+
+.portal-payment-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--midnight);
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+  transition: var(--transition-fast);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+.portal-payment-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+}
+
+.portal-payment-btn.disabled {
+  background: var(--ink-light);
+  color: #fff;
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.payment-terms-fine {
+  font-size: 11px;
+  color: var(--ink-light);
+  margin-top: 12px;
+}
+
+/* Right Card: Form Styling */
+.luxury-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--midnight);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--ivory);
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+  background: #fff;
+}
+
+.form-group textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.guest-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guest-pill {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: var(--ivory);
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.guest-pill:hover {
+  border-color: var(--gold);
+  color: var(--midnight);
+}
+
+.guest-pill.active {
+  background: var(--midnight);
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+.stay-duration-pill {
+  padding: 10px 16px;
+  background: var(--gold-pale);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--midnight);
+  text-align: center;
+}
+
+.form-submit-btn {
+  padding: 15px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--ruby-bright), var(--ruby));
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: 0 8px 20px var(--ruby-glow);
+  margin-top: 10px;
+}
+
+.form-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px var(--ruby-glow);
+}
+
+.summary-drawer {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--midnight);
+  color: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gold-border);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.drawer-header h4 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--gold-light);
+}
+
+.drawer-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.summary-drawer pre {
+  white-space: pre-wrap;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 960px) {
+  .portal-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
