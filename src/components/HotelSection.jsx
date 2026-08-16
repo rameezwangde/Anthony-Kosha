@@ -77,7 +77,6 @@ export default function HotelSection({ activeKey, onSelect }) {
         {selectedHotel && (
           <div className="selected-hotel-confirmation-banner animate-in">
             <div className="confirmation-left">
-              <span className="confirmation-icon">✨</span>
               <div>
                 <span className="confirmation-tag">ACTIVE SELECTION</span>
                 <h4 className="confirmation-title">{selectedHotel.name}</h4>
