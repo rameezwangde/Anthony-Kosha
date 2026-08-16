@@ -30,6 +30,11 @@ export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
         {/* Category Pill */}
         <span className="room-category-pill">{room.category}</span>
 
+        {/* Price Tag Overlay */}
+        <div className="photo-price-badge">
+          <span className="badge-rate">{room.priceDisplay}</span>
+        </div>
+
         {/* Quick View Button */}
         <button
           type="button"
@@ -53,7 +58,14 @@ export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
 
       {/* Content */}
       <div className="room-card-details">
-        <h4 className="room-title">{room.name}</h4>
+        <div className="room-title-price-row">
+          <h4 className="room-title">{room.name}</h4>
+          <div className="room-price-block">
+            <span className="price-tag-large">{room.priceDisplay}</span>
+            <span className="price-fee-note">{room.feeNote}</span>
+          </div>
+        </div>
+
         <p className="room-desc">{room.desc}</p>
 
         {/* Feature Tags */}

@@ -15,7 +15,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
   const [showSummary, setShowSummary] = useState(false);
   const [summaryText, setSummaryText] = useState('');
 
-  // Calculate stay duration
+  // Calculate stay duration in nights
   const stayNights = useMemo(() => {
     if (!formData.checkIn || !formData.checkOut) return 0;
     const start = new Date(formData.checkIn);
@@ -24,6 +24,12 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   }, [formData.checkIn, formData.checkOut]);
+
+  // Calculate total price if priceNum exists
+  const totalPrice = useMemo(() => {
+    if (!selectedRoom?.priceNum || stayNights <= 0) return null;
+    return selectedRoom.priceNum * stayNights;
+  }, [selectedRoom, stayNights]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -48,16 +54,22 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       return;
     }
 
-    const summary = `ANTHONY & KOSHA · WEDDING RESERVATION SUMMARY
+    const priceSummary = totalPrice
+      ? `Estimated Rate: ${totalPrice.toLocaleString()} AED (${stayNights} nights @ ${selectedRoom.priceNum} AED/night) + card processing charges`
+      : `Rate: ${selectedRoom.priceDisplay} (${selectedRoom.feeNote})`;
 
-Hotel: ${hotelName}
+    const summary = `ANTHONY & KOSHA · WEDDING RESERVATION
+
+Dedicated Hotel: ${hotelName}
 Room Category: ${selectedRoom.value}
+${priceSummary}
+
 Guest Name: ${formData.guestName}
 Guests: ${formData.guestCount}
 Mobile / WhatsApp: ${formData.phone}
 Email: ${formData.email}
-Check-In: ${formData.checkIn}
-Check-Out: ${formData.checkOut} (${stayNights} Nights)
+Check-In Date: ${formData.checkIn}
+Check-Out Date: ${formData.checkOut} (${stayNights} Nights)
 Special Requests: ${formData.requests || 'None'}`;
 
     setSummaryText(summary);
@@ -69,7 +81,7 @@ Special Requests: ${formData.requests || 'None'}`;
   const handlePaymentClick = (e) => {
     if (!hasPaymentUrl) {
       e.preventDefault();
-      alert('The official hotel payment link for this category is pending update by the event organizers.');
+      alert(`The official payment link for ${hotelName} is pending update by event organizers.`);
     }
   };
 
@@ -77,18 +89,18 @@ Special Requests: ${formData.requests || 'None'}`;
     <section className="portal-section" id="portal">
       <div className="portal-container">
         <div className="section-header">
-          <span className="section-label">Step 3 &amp; 4 · Checkout Portal</span>
-          <h2 className="section-title">Complete Your Reservation</h2>
+          <span className="section-label">Step 3 &amp; 4 · Dedicated Checkout</span>
+          <h2 className="section-title">{hotelName.split(' ')[0]} Reservation Form</h2>
           <p className="section-subtitle">
-            Review your selected accommodation details and enter guest information to finalize your wedding stay.
+            Complete your stay details below for <strong>{hotelName}</strong>. Standard rates: Deluxe Single 800 AED / Deluxe Double 875 AED per night.
           </p>
         </div>
 
         <div className="portal-split-layout">
-          {/* Left Column: Live Booking Summary & Instant Payment Trigger */}
+          {/* Left Column: Live Stay Summary & Price Breakdown */}
           <div className="portal-card booking-summary-card">
             <div className="card-header">
-              <span className="card-tag">Selection Overview</span>
+              <span className="card-tag">{hotelName.split(' ')[0]} Selection</span>
               <h3>Live Stay Summary</h3>
             </div>
 
@@ -100,28 +112,45 @@ Special Requests: ${formData.requests || 'None'}`;
                 <div className="selection-info">
                   <span className="hotel-name-badge">{hotelName}</span>
                   <h4 className="selected-room-name">{selectedRoom.name}</h4>
+
+                  {/* Price Rate Highlight Box */}
+                  <div className="live-rate-highlight">
+                    <div className="rate-amount-line">
+                      <span className="rate-lbl">Nightly Rate:</span>
+                      <strong className="rate-val">{selectedRoom.priceDisplay}</strong>
+                    </div>
+                    <span className="rate-card-fee">* {selectedRoom.feeNote}</span>
+
+                    {totalPrice && (
+                      <div className="calculated-total-row">
+                        <span>Estimated Total ({stayNights} Nights):</span>
+                        <strong>{totalPrice.toLocaleString()} AED</strong>
+                      </div>
+                    )}
+                  </div>
+
                   <p className="selected-room-desc">{selectedRoom.desc}</p>
                 </div>
               </div>
             ) : (
               <div className="no-selection-placeholder">
                 <div className="placeholder-icon">🏨</div>
-                <h4>No Room Selected Yet</h4>
-                <p>Please choose a room category from the selection grid above to proceed with booking.</p>
+                <h4>Select a Room for {hotelName.split(' ')[0]}</h4>
+                <p>Choose between Deluxe Single (800 AED) or Deluxe Double (875 AED) above.</p>
                 <button
                   type="button"
                   className="placeholder-select-btn"
                   onClick={() => document.getElementById('rooms')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Choose Room ↑
+                  View Room Rates ↑
                 </button>
               </div>
             )}
 
-            {/* Payment Section inside Left Card */}
+            {/* Payment Section */}
             <div className="payment-action-block">
               <div className="payment-guarantee-note">
-                🔒 <span>SSL Encrypted Hotel Direct Checkout</span>
+                🔒 <span>SSL Encrypted Checkout · Direct to Hotel</span>
               </div>
 
               <a
@@ -131,32 +160,30 @@ Special Requests: ${formData.requests || 'None'}`;
                 rel="noopener noreferrer"
                 onClick={handlePaymentClick}
               >
-                {hasPaymentUrl ? 'Proceed to Payment ↗' : 'Payment Link Pending'}
+                {hasPaymentUrl ? `Pay via ${hotelName.split(' ')[0]} Checkout ↗` : 'Payment Link Pending'}
               </a>
 
               <div className="payment-terms-fine">
-                {hasPaymentUrl
-                  ? 'Clicking will open the secure hotel payment page in a new tab.'
-                  : 'Room selection is saved. Real payment gateway URLs will activate checkout directly.'}
+                Deluxe Single: 800 AED/night · Deluxe Double: 875 AED/night (+ card charges)
               </div>
             </div>
           </div>
 
-          {/* Right Column: Luxury Guest Information Form */}
+          {/* Right Column: Dedicated Hotel Reservation Form */}
           <div className="portal-card guest-form-card">
             <div className="card-header">
-              <span className="card-tag">Guest Details</span>
-              <h3>Stay Information</h3>
+              <span className="card-tag">Dedicated Form</span>
+              <h3>{hotelName.split(' ')[0]} Guest Reservation</h3>
             </div>
 
             <form onSubmit={handleSubmit} className="luxury-form">
               <div className="form-group">
-                <label htmlFor="guestName">Full Name *</label>
+                <label htmlFor="guestName">Guest Full Name *</label>
                 <input
                   id="guestName"
                   type="text"
                   required
-                  placeholder="e.g. Lord & Lady Smith"
+                  placeholder="e.g. John Smith"
                   value={formData.guestName}
                   onChange={handleChange}
                 />
@@ -205,7 +232,7 @@ Special Requests: ${formData.requests || 'None'}`;
                 </div>
               </div>
 
-              {/* Dates & Night Counter */}
+              {/* Check-In / Check-Out */}
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="checkIn">Check-In Date *</label>
@@ -232,7 +259,10 @@ Special Requests: ${formData.requests || 'None'}`;
 
               {stayNights > 0 && (
                 <div className="stay-duration-pill">
-                  ✨ Duration of stay: <strong>{stayNights} Nights</strong>
+                  ✨ Stay Duration: <strong>{stayNights} Nights</strong>
+                  {totalPrice && (
+                    <span className="total-est-tag"> · Total: {totalPrice.toLocaleString()} AED (+ card charges)</span>
+                  )}
                 </div>
               )}
 
@@ -240,21 +270,21 @@ Special Requests: ${formData.requests || 'None'}`;
                 <label htmlFor="requests">Special Requests (Optional)</label>
                 <textarea
                   id="requests"
-                  placeholder="e.g. Connecting rooms, extra bed, dietary preferences, late arrival..."
+                  placeholder="Connecting rooms, extra bed, accessibility, flight arrival time..."
                   value={formData.requests}
                   onChange={handleChange}
                 />
               </div>
 
               <button type="submit" className="form-submit-btn">
-                Review Guest Summary
+                Submit {hotelName.split(' ')[0]} Reservation Details
               </button>
             </form>
 
             {showSummary && (
               <div className="summary-drawer animate-in">
                 <div className="drawer-header">
-                  <h4>Reservation Summary</h4>
+                  <h4>Reservation Details Preview</h4>
                   <button type="button" onClick={() => setShowSummary(false)}>✕</button>
                 </div>
                 <pre>{summaryText}</pre>
