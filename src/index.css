@@ -1,29 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 :root {
-  /* ─── Luxury Color Tokens ─── */
-  --midnight: #060d19;
-  --midnight-card: #0c1729;
-  --midnight-light: #14223b;
+  /* ─── Exact Color Palette from A&K Logo Crest ─── */
   
-  --ruby: #6d092c;
-  --ruby-bright: #94103c;
-  --ruby-accent: #c41e53;
-  --ruby-glow: rgba(148, 16, 60, 0.25);
+  /* 1. Deep Royal Sapphire Navy (Outer canvas & ring detail) */
+  --midnight: #071020;
+  --midnight-card: #0d1a30;
+  --midnight-light: #142542;
+  
+  /* 2. Velvet Crimson & Jewel Magenta (Central velvet emblem & crystal drop gems) */
+  --ruby: #7d0b2e;
+  --ruby-bright: #b81446;
+  --ruby-accent: #d81d58;
+  --ruby-glow: rgba(184, 20, 70, 0.28);
 
-  --gold: #d4af37;
-  --gold-light: #e9d082;
-  --gold-pale: #fcf6e2;
-  --gold-glow: rgba(212, 175, 55, 0.22);
-  --gold-border: rgba(212, 175, 55, 0.35);
+  /* 3. Polished Imperial Gold (A&K Monogram, Golden Peacocks, Filigree Frames) */
+  --gold: #e5bb65;
+  --gold-light: #f7dc98;
+  --gold-dark: #c29433;
+  --gold-pale: #fdf7e7;
+  --gold-glow: rgba(229, 187, 101, 0.25);
+  --gold-border: rgba(229, 187, 101, 0.4);
 
-  --ivory: #fcfaf5;
+  /* 4. Warm Pearl Silk & Ivory (Peacock Pearl Feather details) */
+  --ivory: #fbf8f2;
   --ivory-card: #ffffff;
-  --paper-cream: #f6f1e7;
+  --paper-cream: #f5eedf;
   
-  --ink: #1a1617;
-  --ink-muted: #5e5458;
-  --ink-light: #8c8085;
+  /* 5. Typography Neutral Ink */
+  --ink: #1a1417;
+  --ink-muted: #5e5156;
+  --ink-light: #8c7e84;
 
   /* ─── Fonts ─── */
   --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -39,9 +46,10 @@
 
   /* ─── Shadows ─── */
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 12px 36px rgba(6, 13, 25, 0.08);
-  --shadow-lg: 0 24px 60px rgba(6, 13, 25, 0.14);
-  --shadow-gold: 0 16px 40px rgba(212, 175, 55, 0.2);
+  --shadow-md: 0 12px 36px rgba(7, 16, 32, 0.08);
+  --shadow-lg: 0 24px 60px rgba(7, 16, 32, 0.16);
+  --shadow-gold: 0 16px 40px rgba(229, 187, 101, 0.25);
+  --shadow-ruby: 0 16px 40px rgba(184, 20, 70, 0.3);
 
   /* ─── Transitions ─── */
   --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,7 +91,7 @@ h1, h2, h3, h4 {
 .script-text {
   font-family: var(--font-script);
   font-weight: 400;
-  color: var(--gold);
+  color: var(--gold-light);
 }
 
 /* ─── Utilities ─── */
@@ -91,9 +99,9 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 7px 18px;
   border-radius: var(--radius-pill);
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(229, 187, 101, 0.12);
   border: 1px solid var(--gold-border);
   color: var(--gold-light);
   font-size: 11px;
