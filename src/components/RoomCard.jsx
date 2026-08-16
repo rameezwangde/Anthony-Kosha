@@ -29,7 +29,7 @@ export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
         {/* Price Display */}
         <div className="ref-room-price-display">
           <span className="price-main">{room.priceDisplay}</span>
-          <span className="price-sub"> * + {room.feeNote}</span>
+          {room.feeNote && <span className="price-sub"> {room.feeNote}</span>}
         </div>
 
         {/* Person & Bed Icons Row */}
