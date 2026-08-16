@@ -36,7 +36,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     if (hasPaymentUrl) {
       window.open(selectedRoom.paymentUrl, '_blank', 'noopener,noreferrer');
     } else {
-      alert('Room selection saved! The official payment gateway link is pending activation.');
+      alert(`Room selection saved (${selectedRoom.name} - ${selectedRoom.priceDisplay})! The official payment gateway link is pending activation.`);
     }
   };
 
@@ -190,6 +190,18 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
                 <div className="summary-room-name">{selectedRoom ? selectedRoom.name : 'Select a Room Above'}</div>
               </div>
             </div>
+
+            {/* Selected Room Rate & Fee Details */}
+            {selectedRoom && (
+              <>
+                <div className="summary-divider" />
+                <div className="summary-data-block">
+                  <span className="summary-lbl">ROOM RATE</span>
+                  <div className="summary-main-val">{selectedRoom.priceDisplay}</div>
+                  <div className="summary-sub-val">* {selectedRoom.feeNote}</div>
+                </div>
+              </>
+            )}
 
             <div className="summary-divider" />
 
