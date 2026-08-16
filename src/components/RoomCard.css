@@ -1,0 +1,133 @@
+.room-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-soft);
+}
+
+.room-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.room-card.selected {
+  border-color: var(--ruby);
+  box-shadow: 0 0 0 3px rgba(168, 15, 69, 0.10), var(--shadow);
+}
+
+.room-card-photo {
+  height: 265px;
+  overflow: hidden;
+  background: #eadfd2;
+  position: relative;
+}
+
+.room-card-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #eadfd2 25%,
+    #f0e8dc 50%,
+    #eadfd2 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.room-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out), opacity 0.4s ease;
+}
+
+.room-card:hover .room-card-photo img {
+  transform: scale(1.05);
+}
+
+.room-card-dot {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(13, 35, 66, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  color: #fff;
+  font-size: 0;
+  z-index: 3;
+  backdrop-filter: blur(8px);
+  transition: var(--transition-base);
+}
+
+.room-card.selected .room-card-dot {
+  background: var(--ruby);
+  border-color: var(--ruby);
+  font-size: 16px;
+  transform: scale(1.1);
+}
+
+.room-card-body {
+  padding: 20px 22px 24px;
+}
+
+.room-card-num {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.room-card h4 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--navy);
+  margin: 6px 0;
+}
+
+.room-card p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+
+.room-view-btn {
+  margin-top: 14px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--ruby);
+  font-weight: 700;
+  font-size: 11.5px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(168, 15, 69, 0.3);
+  transition: var(--transition-base);
+  letter-spacing: 0.02em;
+}
+
+.room-view-btn:hover {
+  text-decoration-color: var(--ruby);
+  color: var(--ruby-dark);
+}
+
+@media (max-width: 560px) {
+  .room-card-photo {
+    height: 225px;
+  }
+
+  .room-card h4 {
+    font-size: 21px;
+  }
+}

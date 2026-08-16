@@ -1,0 +1,121 @@
+.hero {
+  position: relative;
+  text-align: center;
+  min-height: 580px;
+  display: grid;
+  place-items: center;
+  padding: 52px 20px 80px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(210, 28, 98, 0.10), transparent 25rem),
+    radial-gradient(circle at 85% 20%, rgba(13, 35, 66, 0.09), transparent 28rem);
+}
+
+.hero-circle {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 170, 84, 0.15);
+  pointer-events: none;
+}
+
+.hero-circle-left {
+  left: -250px;
+  top: 70px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-circle-right {
+  right: -250px;
+  top: 40px;
+  animation: float 8s ease-in-out infinite 4s;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logo {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 14px;
+}
+
+.hero-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(77, 19, 46, 0.2));
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-kicker {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-family: var(--font-body);
+}
+
+.hero-title {
+  font-size: clamp(46px, 7.5vw, 82px);
+  font-weight: 400;
+  line-height: 1;
+  margin: 8px 0 14px;
+  color: var(--ruby-dark);
+  font-style: italic;
+}
+
+.hero-ampersand {
+  font-style: normal;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.hero-subtitle {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  line-height: 1.55;
+  color: #66595f;
+  max-width: 660px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+.hero-date {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+}
+
+.hero-date-diamond {
+  font-size: 7px;
+  color: var(--gold);
+}
+
+@media (max-width: 560px) {
+  .hero {
+    min-height: 510px;
+    padding: 36px 16px 60px;
+  }
+
+  .hero-logo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+  }
+}

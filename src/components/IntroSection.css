@@ -1,0 +1,30 @@
+.intro {
+  position: relative;
+  margin-top: -36px;
+  background: rgba(255, 253, 249, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 30px 32px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.intro-glow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  pointer-events: none;
+}
+
+@media (max-width: 560px) {
+  .intro {
+    padding: 22px 18px;
+    margin-top: -24px;
+  }
+}

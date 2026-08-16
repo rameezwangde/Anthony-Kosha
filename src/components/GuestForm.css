@@ -1,0 +1,136 @@
+.formbox {
+  margin-top: 52px;
+  background: rgba(255, 253, 249, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  box-shadow: var(--shadow);
+}
+
+.formgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.flabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-family: var(--font-body);
+}
+
+.formgrid input,
+.formgrid select,
+.formgrid textarea {
+  width: 100%;
+  border: 1px solid #e3d7c6;
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 14px 16px;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  transition: var(--transition-base);
+}
+
+.formgrid input:focus,
+.formgrid select:focus,
+.formgrid textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+  background: #fff;
+}
+
+.formgrid textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.fine {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 660px;
+}
+
+.primary-btn {
+  border: 0;
+  background: linear-gradient(135deg, var(--ruby), var(--ruby-dark));
+  color: white;
+  border-radius: var(--radius-sm);
+  padding: 15px 28px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(168, 15, 69, 0.15);
+  transition: var(--transition-base);
+  letter-spacing: 0.02em;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(168, 15, 69, 0.3);
+  background: linear-gradient(135deg, var(--ruby2), var(--ruby-dark));
+}
+
+.summary {
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  background: var(--gold-glow);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  animation: scaleIn 0.4s var(--ease-out) both;
+}
+
+.summary pre {
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+  line-height: 1.7;
+  margin: 0;
+  font-size: 14px;
+  color: var(--navy);
+}
+
+@media (max-width: 830px) {
+  .formgrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+  
+  .primary-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .formbox {
+    padding: 24px 18px;
+  }
+}
