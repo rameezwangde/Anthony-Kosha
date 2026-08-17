@@ -21,7 +21,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!selectedRoom) {
@@ -35,20 +35,49 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       return;
     }
 
-    if (formData.checkIn && formData.checkOut && new Date(formData.checkOut) <= new Date(formData.checkIn)) {
+    if (!formData.checkIn || !formData.checkOut) {
+      alert('Please select both check-in and check-out dates.');
+      return;
+    }
+
+    const checkInDate = new Date(formData.checkIn);
+    const checkOutDate = new Date(formData.checkOut);
+
+    if (checkOutDate <= checkInDate) {
       alert('Please select a check-out date that is after your check-in date.');
       return;
     }
 
-    const paymentUrl = selectedRoom?.paymentUrl;
+    // Calculate exact number of nights
+    const diffTime = Math.abs(checkOutDate - checkInDate);
+    const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    if (paymentUrl) {
-      // Build prefilled Stripe Checkout URL
-      const separator = paymentUrl.includes('?') ? '&' : '?';
-      const prefilledUrl = `${paymentUrl}${separator}prefilled_email=${encodeURIComponent(formData.email)}&client_reference_id=${encodeURIComponent(formData.guestName)}`;
-      
-      // Open in same tab so Stripe can redirect back to /success
-      window.location.href = prefilledUrl;
+    if (selectedRoom.priceNum && selectedRoom.priceNum > 0) {
+      try {
+        const response = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            roomName: selectedRoom.name,
+            priceNum: selectedRoom.priceNum,
+            nights,
+            customerEmail: formData.email,
+            customerName: formData.guestName,
+          }),
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to generate checkout session');
+        }
+        
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        }
+      } catch (error) {
+        console.error('Checkout error:', error);
+        alert('There was an error connecting to the payment gateway. Please try again.');
+      }
     } else {
       alert(`Room selection saved! The official payment gateway link is pending activation.`);
     }

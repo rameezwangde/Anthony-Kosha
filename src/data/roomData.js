@@ -43,7 +43,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Spacious contemporary King room for one guest featuring floor-to-ceiling windows, marble bathroom, and Dubai Water Canal view.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22071978/dxbah-room-bedroom.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_800 || "",
+
       tags: ["1 King Bed", "Single Occupancy", "800 DHS / night"],
     },
     {
@@ -56,7 +56,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Twin-bed luxury deluxe room crafted for two guests, featuring refined warm wood finishes, workspace, and plush bedding.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22071968/dxbah-twin-guest-room-overview.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_875 || "",
+
       tags: ["2 Twin Beds", "Double Occupancy", "875 DHS / night"],
     },
     {
@@ -69,7 +69,7 @@ export const roomData = {
       feeNote: "",
       desc: "Stunning King room featuring iconic views of the Burj Khalifa, spacious interior, and a luxury marble bathroom. Accommodates up to 3 guests.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22509517/dxbah-room-overview.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Up to 3 Guests", "Price on request"],
     },
     {
@@ -82,7 +82,7 @@ export const roomData = {
       feeNote: "",
       desc: "Exclusive King Panasonic Suite offering advanced technology, premium comfort, expansive living spaces, and luxury amenities. Accommodates up to 4 guests.",
       img: "https://www.hilton.com/im/en/DXBAHHI/19704638/king-panoramic-suite-livingroom-aminities.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Up to 4 Guests", "Price on request"],
     },
   ],
@@ -97,7 +97,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Bold retro-futuristic King room with custom neon lighting accents, round oversized bath, and panoramic Dubai skyline views.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/20266724/grand-deluxe-suite-room-aminities.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_800 || "",
+
       tags: ["1 King Bed", "Single Occupancy", "800 DHS / night"],
     },
     {
@@ -110,7 +110,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Two Queen Beds room with signature Curio design aesthetic, high-speed sound system, and spacious marble bathroom.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/20266740/king-deluxe-room-room-view.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_875 || "",
+
       tags: ["2 Queen Beds", "Double Occupancy", "875 DHS / night"],
     },
     {
@@ -123,7 +123,7 @@ export const roomData = {
       feeNote: "",
       desc: "An ultra-modern Mega Suite featuring avant-garde design, a dedicated entertainment space, and panoramic views. Accommodates up to 3 guests.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/22883780/dxbvh-king-mega-suite-overview.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Up to 3 Guests", "Price on request"],
     },
     {
@@ -136,7 +136,7 @@ export const roomData = {
       feeNote: "",
       desc: "Spacious Grand Deluxe Suite with bold decor, separate living area, and premium amenities tailored for a VIP experience. Accommodates up to 3 guests.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/20266694/vhotel-grand-deluxe-suite-view.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Up to 3 Guests", "Price on request"],
     },
     {
@@ -149,7 +149,7 @@ export const roomData = {
       feeNote: "",
       desc: "The pinnacle of luxury at V Hotel. The Sky Villa offers an expansive multi-room layout, private bar, and breathtaking skyline views. Accommodates up to 5 guests.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/22897102/dxbvh-sky-villa-living-areas.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+
       tags: ["Multi-Room", "Up to 5 Guests", "Price on request"],
     },
   ],
@@ -164,7 +164,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Opulent Beaux-Arts King room featuring French crystal chandeliers, 24/7 personal butler service, and marble bath with deep soaking tub.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Fking_grand_deluxe__room_view_1716534201863.avif&w=3840&q=75",
-      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_800 || "",
+
       tags: ["1 King Bed", "Up to 1 Guest", "800 DHS / night"],
     },
     {
@@ -177,7 +177,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Stunning twin-bed palace room for two guests with silk velvet drapery, bespoke hand-carved furnishings, and canal garden views.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Ftwo_double_beds_deluxe_room_overview_1716534302216.avif&w=3840&q=75",
-      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_875 || "",
+
       tags: ["2 Twin Beds", "Up to 2 Guests", "875 DHS / night"],
     },
     {
@@ -190,7 +190,7 @@ export const roomData = {
       feeNote: "",
       desc: "An elegantly appointed Beaux-Arts accessible room designed for comfort and mobility, featuring luxury amenities and a roll-in shower. Accommodates up to 2 guests.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Fking_deluxe_room_overview_with_the_view_1716534384996.avif&w=3840&q=75",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Accessible", "Price on request"],
     },
     {
@@ -203,7 +203,7 @@ export const roomData = {
       feeNote: "",
       desc: "A sprawling luxury suite designed for dignitaries, featuring exquisite decor, a private dining area, and dedicated butler service. Accommodates up to 4 guests.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Fking_diplomat_suite_bedroom_overview_1716534648942.avif&w=3840&q=75",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Up to 4 Guests", "Price on request"],
     },
     {
@@ -216,7 +216,7 @@ export const roomData = {
       feeNote: "",
       desc: "The magnificent Ambassador Suite offers palatial luxury with unparalleled privacy, grand living spaces, and bespoke furnishings. Accommodates up to 4 guests.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Fking_ambassador_suite__bedroom_1716534737003.avif&w=3840&q=75",
-      paymentUrl: "",
+
       tags: ["1 King Bed", "Up to 4 Guests", "Price on request"],
     },
   ],
