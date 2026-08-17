@@ -43,7 +43,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Spacious contemporary King room for one guest featuring floor-to-ceiling windows, marble bathroom, and Dubai Water Canal view.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22071978/dxbah-room-bedroom.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_800 || "",
       tags: ["1 King Bed", "Single Occupancy", "800 DHS / night"],
     },
     {
@@ -56,7 +56,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Twin-bed luxury deluxe room crafted for two guests, featuring refined warm wood finishes, workspace, and plush bedding.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22071968/dxbah-twin-guest-room-overview.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_875 || "",
       tags: ["2 Twin Beds", "Double Occupancy", "875 DHS / night"],
     },
     {
@@ -97,7 +97,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Bold retro-futuristic King room with custom neon lighting accents, round oversized bath, and panoramic Dubai skyline views.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/20266724/grand-deluxe-suite-room-aminities.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_800 || "",
       tags: ["1 King Bed", "Single Occupancy", "800 DHS / night"],
     },
     {
@@ -110,7 +110,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Two Queen Beds room with signature Curio design aesthetic, high-speed sound system, and spacious marble bathroom.",
       img: "https://www.hilton.com/im/en/DXBVHQQ/20266740/king-deluxe-room-room-view.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
-      paymentUrl: "",
+      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_875 || "",
       tags: ["2 Queen Beds", "Double Occupancy", "875 DHS / night"],
     },
     {
@@ -164,7 +164,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Opulent Beaux-Arts King room featuring French crystal chandeliers, 24/7 personal butler service, and marble bath with deep soaking tub.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Fking_grand_deluxe__room_view_1716534201863.avif&w=3840&q=75",
-      paymentUrl: "",
+      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_800 || "",
       tags: ["1 King Bed", "Up to 1 Guest", "800 DHS / night"],
     },
     {
@@ -177,7 +177,7 @@ export const roomData = {
       feeNote: "+ any card charges",
       desc: "Stunning twin-bed palace room for two guests with silk velvet drapery, bespoke hand-carved furnishings, and canal garden views.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Ftwo_double_beds_deluxe_room_overview_1716534302216.avif&w=3840&q=75",
-      paymentUrl: "",
+      paymentUrl: import.meta.env.VITE_STRIPE_PAYMENT_LINK_875 || "",
       tags: ["2 Twin Beds", "Up to 2 Guests", "875 DHS / night"],
     },
     {

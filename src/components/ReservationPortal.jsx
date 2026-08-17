@@ -40,7 +40,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       return;
     }
 
-    const paymentUrl = import.meta.env.VITE_STRIPE_PAYMENT_URL;
+    const paymentUrl = selectedRoom?.paymentUrl;
 
     if (paymentUrl) {
       // Build prefilled Stripe Checkout URL
