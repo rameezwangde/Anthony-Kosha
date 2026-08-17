@@ -44,10 +44,11 @@ export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
           {room.feeNote && <span className="price-sub"> {room.feeNote}</span>}
         </div>
 
-        {/* Person & Bed Icons Row */}
+        {/* Person, Bed, & Breakfast Icons Row */}
         <div className="ref-room-meta-row">
           <span className="meta-item">👤 {guestIconText}</span>
           <span className="meta-item">🛏 {bedText}</span>
+          <span className="meta-item">☕ Breakfast Included</span>
         </div>
 
         <p className="ref-room-desc">{room.desc}</p>
