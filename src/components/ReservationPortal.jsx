@@ -14,6 +14,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     checkIn: '',
     checkOut: '',
     requests: '',
+    offeredPrice: '',
   });
 
   const handleChange = (e) => {
@@ -79,7 +80,24 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
         alert('There was an error connecting to the payment gateway. Please try again.');
       }
     } else {
-      alert(`Room selection saved! The official payment gateway link is pending activation.`);
+      const subject = encodeURIComponent(`Booking Inquiry: ${selectedRoom.name}`);
+      const body = encodeURIComponent(`Hello Wedding Team,
+
+I would like to request a booking for the following room:
+Room: ${selectedRoom.name}
+Hotel: ${hotelName}
+Guest Name: ${formData.guestName}
+Email: ${formData.email}
+Mobile: ${formData.phone}
+Guests: ${formData.guestCount}
+Check-In: ${formData.checkIn}
+Check-Out: ${formData.checkOut}
+Offered Price (per night): ${formData.offeredPrice ? formData.offeredPrice + ' AED' : 'Not specified'}
+Special Requests: ${formData.requests}
+
+Looking forward to your confirmation.`);
+      
+      window.location.href = `mailto:360eventsdxb@gmail.com?subject=${subject}&body=${body}`;
     }
   };
 
@@ -216,6 +234,20 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
                 </div>
               </div>
 
+              {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0) && (
+                <div className="form-field-group full-width">
+                  <label htmlFor="offeredPrice">OFFERED PRICE PER NIGHT (AED)</label>
+                  <input
+                    id="offeredPrice"
+                    type="number"
+                    placeholder="Enter your proposed price in AED"
+                    value={formData.offeredPrice}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              )}
+
               <div className="form-field-group full-width">
                 <label htmlFor="requests">SPECIAL REQUESTS</label>
                 <textarea
@@ -232,7 +264,9 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
                 </div>
 
                 <button type="submit" className="continue-payment-btn">
-                  Continue to Secure Payment →
+                  {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0) 
+                    ? 'Mail Us →'
+                    : 'Continue to Secure Payment →'}
                 </button>
               </div>
             </form>
@@ -323,11 +357,15 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
               className="summary-gold-cta-btn"
               onClick={handleSubmit}
             >
-              CONTINUE TO SECURE PAYMENT →
+              {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0) 
+                ? 'MAIL US →'
+                : 'CONTINUE TO SECURE PAYMENT →'}
             </button>
 
             <div className="summary-footer-lock">
-              🔒 <span>Stripe 256-bit SSL Encrypted Payment</span>
+              {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0)
+                ? <span>✉️ Send your request directly to our team</span>
+                : <span>🔒 Stripe 256-bit SSL Encrypted Payment</span>}
             </div>
           </div>
         </div>
