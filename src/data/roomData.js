@@ -54,10 +54,10 @@ export const roomData = {
       priceNum: 875,
       priceDisplay: "875 DHS / night",
       feeNote: "+ any card charges",
-      desc: "Twin-bed luxury deluxe room crafted for two guests, featuring refined warm wood finishes, workspace, and plush bedding.",
+      desc: "Luxury deluxe room crafted for two guests, featuring refined warm wood finishes, workspace, and plush bedding. Available with 2 Twin Beds or 1 King Bed.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22071968/dxbah-twin-guest-room-overview.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
 
-      tags: ["2 Twin Beds", "Double Occupancy", "875 DHS / night"],
+      tags: ["2 Twin or 1 King Bed", "Double Occupancy", "875 DHS / night"],
     },
     {
       id: "hilton-king-deluxe-burj",
@@ -108,10 +108,10 @@ export const roomData = {
       priceNum: 875,
       priceDisplay: "875 DHS / night",
       feeNote: "+ any card charges",
-      desc: "Two Queen Beds room with signature Curio design aesthetic, high-speed sound system, and spacious marble bathroom.",
-      img: "https://www.hilton.com/im/en/DXBVHQQ/20266740/king-deluxe-room-room-view.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
+      desc: "Signature Curio design aesthetic room for two guests, high-speed sound system, and spacious marble bathroom. Available with 2 Twin Beds or 1 King Bed.",
+      img: "https://www.hilton.com/im/en/DXBVHQQ/20266724/grand-deluxe-suite-room-aminities.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=528&rh=316",
 
-      tags: ["2 Queen Beds", "Double Occupancy", "875 DHS / night"],
+      tags: ["2 Twin or 1 King Bed", "Double Occupancy", "875 DHS / night"],
     },
     {
       id: "vhotel-mega-suite",
@@ -175,10 +175,10 @@ export const roomData = {
       priceNum: 875,
       priceDisplay: "875 DHS / night",
       feeNote: "+ any card charges",
-      desc: "Stunning twin-bed palace room for two guests with silk velvet drapery, bespoke hand-carved furnishings, and canal garden views.",
+      desc: "Stunning palace room for two guests with silk velvet drapery, bespoke hand-carved furnishings, and canal garden views. Available with 2 Twin Beds or 1 King Bed.",
       img: "https://www.habtoorpalace.com/_next/image?url=https%3A%2F%2Fal-habtoor-palace.fra1.cdn.digitaloceanspaces.com%2Fimages%2Fdefault%2Ftwo_double_beds_deluxe_room_overview_1716534302216.avif&w=3840&q=75",
 
-      tags: ["2 Twin Beds", "Up to 2 Guests", "875 DHS / night"],
+      tags: ["2 Twin or 1 King Bed", "Up to 2 Guests", "875 DHS / night"],
     },
     {
       id: "habtoor-accessible-deluxe",
