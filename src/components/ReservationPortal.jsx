@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PhoneInputPkg from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './ReservationPortal.css';
@@ -21,6 +21,26 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
+
+  useEffect(() => {
+    if (selectedRoom) {
+      let guestIconText = '2 Guests';
+      const guestTag = selectedRoom.tags?.find(t => t.toLowerCase().includes('guest') || t.toLowerCase().includes('occupancy'));
+      if (guestTag) {
+        if (guestTag.toLowerCase().includes('single') || guestTag.includes('1 Guest')) guestIconText = '1 Guest';
+        else if (guestTag.toLowerCase().includes('double') || guestTag.includes('2 Guests')) guestIconText = '2 Guests';
+        else {
+          const numMatch = guestTag.match(/\d+/);
+          if (numMatch) {
+            guestIconText = parseInt(numMatch[0]) >= 5 ? '5+ Guests' : `${numMatch[0]} Guests`;
+          }
+        }
+      } else if (selectedRoom.name.toLowerCase().includes('single')) {
+        guestIconText = '1 Guest';
+      }
+      setFormData((prev) => ({ ...prev, guestCount: guestIconText }));
+    }
+  }, [selectedRoom]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -206,6 +226,8 @@ Looking forward to your confirmation.`);
                     required
                     value={formData.guestCount}
                     onChange={handleChange}
+                    disabled={!!selectedRoom}
+                    style={{ backgroundColor: selectedRoom ? '#f0f0f0' : 'transparent', cursor: selectedRoom ? 'not-allowed' : 'pointer' }}
                   >
                     <option value="">Select</option>
                     <option value="1 Guest">1 Guest</option>
