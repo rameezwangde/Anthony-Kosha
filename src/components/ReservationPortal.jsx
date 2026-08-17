@@ -15,6 +15,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     checkOut: '',
     requests: '',
     offeredPrice: '',
+    roomQuantity: '1',
   });
 
   const handleChange = (e) => {
@@ -82,6 +83,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             roomName: selectedRoom.name,
             priceNum: selectedRoom.priceNum,
             nights,
+            roomQuantity: parseInt(formData.roomQuantity || 1),
             customerEmail: formData.email,
             customerName: formData.guestName,
           }),
@@ -148,7 +150,10 @@ Looking forward to your confirmation.`);
 
   // Calculate dynamic total price
   let displayNights = 0;
+  let subtotal = 0;
+  let cardFee = 0;
   let totalPrice = 0;
+  
   if (formData.checkIn && formData.checkOut) {
     const checkInDate = new Date(formData.checkIn);
     const checkOutDate = new Date(formData.checkOut);
@@ -156,7 +161,9 @@ Looking forward to your confirmation.`);
       const diffTime = Math.abs(checkOutDate - checkInDate);
       displayNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       if (selectedRoom?.priceNum > 0) {
-        totalPrice = displayNights * selectedRoom.priceNum;
+        subtotal = displayNights * selectedRoom.priceNum * parseInt(formData.roomQuantity || 1);
+        cardFee = subtotal * 0.045; // 4.5% card charge
+        totalPrice = subtotal + cardFee;
       }
     }
   }
@@ -206,21 +213,37 @@ Looking forward to your confirmation.`);
                 </div>
               </div>
 
-              <div className="form-grid-2col">
+              <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                <label htmlFor="email">EMAIL</label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="name@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-grid-2col" style={{ marginTop: '1.5rem' }}>
                 <div className="form-field-group">
-                  <label htmlFor="email">EMAIL</label>
-                  <input
-                    id="email"
-                    type="email"
+                  <label htmlFor="roomQuantity">NUMBER OF ROOMS</label>
+                  <select
+                    id="roomQuantity"
                     required
-                    placeholder="name@example.com"
-                    value={formData.email}
+                    value={formData.roomQuantity}
                     onChange={handleChange}
-                  />
+                  >
+                    <option value="1">1 Room</option>
+                    <option value="2">2 Rooms</option>
+                    <option value="3">3 Rooms</option>
+                    <option value="4">4 Rooms</option>
+                    <option value="5">5 Rooms</option>
+                  </select>
                 </div>
 
                 <div className="form-field-group">
-                  <label htmlFor="guestCount">NUMBER OF GUESTS</label>
+                  <label htmlFor="guestCount">NUMBER OF GUESTS (PER ROOM)</label>
                   <select
                     id="guestCount"
                     required
@@ -329,14 +352,23 @@ Looking forward to your confirmation.`);
               </>
             )}
 
-            {/* Dynamic Total Price */}
-            {displayNights > 0 && totalPrice > 0 && (
+            {/* Dynamic Total Price Breakdown */}
+            {displayNights > 0 && subtotal > 0 && (
               <>
                 <div className="summary-divider" />
                 <div className="summary-data-block">
-                  <span className="summary-lbl">TOTAL EST. ({displayNights} NIGHT{displayNights > 1 ? 'S' : ''})</span>
-                  <div className="summary-main-val" style={{ color: '#d4af37', fontSize: '22px', fontWeight: 'bold' }}>{totalPrice.toLocaleString()} AED</div>
-                  <div className="summary-sub-val">* Including taxes and fees</div>
+                  <span className="summary-lbl">SUBTOTAL ({formData.roomQuantity} ROOM{parseInt(formData.roomQuantity) > 1 ? 'S' : ''} × {displayNights} NIGHT{displayNights > 1 ? 'S' : ''})</span>
+                  <div className="summary-main-val" style={{ fontSize: '18px' }}>{Math.ceil(subtotal).toLocaleString()} AED</div>
+                </div>
+
+                <div className="summary-data-block" style={{ marginTop: '0.75rem' }}>
+                  <span className="summary-lbl">CARD PROCESSING FEE (4.5%)</span>
+                  <div className="summary-main-val" style={{ fontSize: '16px', color: '#EAE0D0' }}>{Math.ceil(cardFee).toLocaleString()} AED</div>
+                </div>
+
+                <div className="summary-data-block" style={{ marginTop: '1rem', borderTop: '1px solid rgba(212, 175, 55, 0.2)', paddingTop: '1rem' }}>
+                  <span className="summary-lbl">TOTAL EST.</span>
+                  <div className="summary-main-val" style={{ color: '#d4af37', fontSize: '24px', fontWeight: 'bold' }}>{Math.ceil(totalPrice).toLocaleString()} AED</div>
                 </div>
               </>
             )}

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { roomName, priceNum, nights, customerEmail, customerName } = req.body;
+    const { roomName, priceNum, nights, roomQuantity, customerEmail, customerName } = req.body;
 
     // Validate required fields
     if (!roomName || !priceNum || !nights || !customerEmail) {
@@ -26,15 +26,27 @@ export default async function handler(req, res) {
         {
           price_data: {
             currency: 'aed',
-            // Stripe expects amount in smallest currency unit (fils). So 800 AED = 80000
-            unit_amount: priceNum * 100, 
+            // Total per room for the entire stay (in fils)
+            unit_amount: priceNum * nights * 100, 
             product_data: {
               name: roomName,
               description: `${nights} Night(s) Stay for Anthony & Kosha's Wedding`,
             },
           },
-          quantity: nights,
+          quantity: roomQuantity || 1,
         },
+        {
+          price_data: {
+            currency: 'aed',
+            // 4.5% card processing fee on the subtotal (in fils)
+            unit_amount: Math.ceil(priceNum * nights * (roomQuantity || 1) * 0.045 * 100), 
+            product_data: {
+              name: 'Card Processing Fee (4.5%)',
+              description: 'Standard secure payment gateway fee',
+            },
+          },
+          quantity: 1,
+        }
       ],
       mode: 'payment',
       success_url: `${origin}/?booking=success`,
