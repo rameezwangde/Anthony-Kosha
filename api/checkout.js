@@ -30,7 +30,7 @@ export default async function handler(req, res) {
             unit_amount: priceNum * nights * 100, 
             product_data: {
               name: roomName,
-              description: `${nights} Night(s) Stay for Anthony & Kosha's Wedding`,
+              description: `${nights} Night(s) Stay with Breakfast for Anthony & Kosha's Wedding`,
             },
           },
           quantity: roomQuantity || 1,

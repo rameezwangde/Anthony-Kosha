@@ -348,6 +348,7 @@ Looking forward to your confirmation.`);
                   <span className="summary-lbl">ROOM RATE</span>
                   <div className="summary-main-val">{selectedRoom.priceDisplay}</div>
                   <div className="summary-sub-val">* {selectedRoom.feeNote}</div>
+                  <div className="summary-sub-val" style={{ color: '#d4af37', marginTop: '4px' }}>☕ Includes Daily Breakfast</div>
                 </div>
               </>
             )}

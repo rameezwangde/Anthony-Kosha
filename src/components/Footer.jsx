@@ -52,6 +52,23 @@ export default function Footer() {
               </li>
             </ul>
           </div>
+
+          {/* Col 4: Contact Support */}
+          <div className="footer-col">
+            <h4 className="footer-heading">Support</h4>
+            <ul className="footer-list">
+              <li>
+                <strong>Christina</strong>
+                <span>Wedding Coordinator</span>
+              </li>
+              <li>
+                <a href="tel:+971501785852" className="footer-contact-link">📞 +971 50 178 5852</a>
+              </li>
+              <li>
+                <a href="mailto:christina@three60events.com" className="footer-contact-link">✉️ christina@three60events.com</a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="footer-bottom">

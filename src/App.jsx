@@ -7,6 +7,7 @@ import RoomGrid from './components/RoomGrid';
 import ReservationPortal from './components/ReservationPortal';
 import PhotoModal from './components/PhotoModal';
 import Footer from './components/Footer';
+import WhatsAppFloat from './components/WhatsAppFloat';
 import SuccessPage from './pages/SuccessPage';
 import { hotelInfo } from './data/roomData';
 import './App.css';
@@ -93,6 +94,8 @@ function App() {
         </Routes>
         {/* Footer is shared across routes */}
         <Footer />
+        {/* Global WhatsApp Floating Action Button */}
+        <WhatsAppFloat />
       </div>
     </Router>
   );
