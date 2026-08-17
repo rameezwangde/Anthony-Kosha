@@ -1,9 +1,21 @@
 import './RoomCard.css';
 
 export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
-  // Determine guest icon text and bed type tag
+  // Determine guest icon text
+  let guestIconText = '2 Guests';
+  const guestTag = room.tags?.find(t => t.toLowerCase().includes('guest') || t.toLowerCase().includes('occupancy'));
+  if (guestTag) {
+    if (guestTag.toLowerCase().includes('single') || guestTag.includes('1 Guest')) guestIconText = '1 Guest';
+    else if (guestTag.toLowerCase().includes('double') || guestTag.includes('2 Guests')) guestIconText = '2 Guests';
+    else {
+      const numMatch = guestTag.match(/\d+/);
+      if (numMatch) guestIconText = `${numMatch[0]} Guests`;
+    }
+  } else if (room.name.toLowerCase().includes('single')) {
+    guestIconText = '1 Guest';
+  }
+
   const isSingle = room.value.toLowerCase().includes('single');
-  const guestIconText = isSingle ? '1 Guest' : '2 Guests';
   const bedText = room.tags?.find(t => t.toLowerCase().includes('bed')) || (isSingle ? 'King Bed' : 'Twin Beds');
 
   return (
