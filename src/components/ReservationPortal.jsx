@@ -82,6 +82,30 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (selectedRoom.priceNum && selectedRoom.priceNum > 0) {
+      // Log submission attempt to Google Sheets
+      try {
+        const payload = {
+          hotelName,
+          roomName: selectedRoom.name,
+          guestName: formData.guestName,
+          email: formData.email,
+          phone: formData.phone,
+          guestCount: formData.guestCount,
+          bedPreference: formData.bedPreference,
+          checkIn: formData.checkIn,
+          checkOut: formData.checkOut,
+          offeredPrice: formData.offeredPrice,
+          requests: formData.requests
+        };
+        await fetch('/api/sheets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch (err) {
+        console.error('Sheet logging error:', err);
+      }
+
       try {
         const response = await fetch('/api/checkout', {
           method: 'POST',
@@ -109,6 +133,30 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
         alert('There was an error connecting to the payment gateway. Please try again.');
       }
     } else {
+      // Log to Google Sheets
+      try {
+        const payload = {
+          hotelName,
+          roomName: selectedRoom.name,
+          guestName: formData.guestName,
+          email: formData.email,
+          phone: formData.phone,
+          guestCount: formData.guestCount,
+          bedPreference: formData.bedPreference,
+          checkIn: formData.checkIn,
+          checkOut: formData.checkOut,
+          offeredPrice: formData.offeredPrice,
+          requests: formData.requests
+        };
+        await fetch('/api/sheets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch (err) {
+        console.error('Sheet logging error:', err);
+      }
+
       const subject = encodeURIComponent(`Booking Inquiry: ${selectedRoom.name}`);
       const body = encodeURIComponent(`Hello Wedding Team,
 
