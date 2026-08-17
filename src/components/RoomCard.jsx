@@ -52,17 +52,6 @@ export default function RoomCard({ room, isSelected, onSelect, onViewPhoto }) {
 
         <p className="ref-room-desc">{room.desc}</p>
 
-        {/* View Gallery Link */}
-        <button
-          type="button"
-          className="ref-view-gallery-btn"
-          onClick={(e) => {
-            e.stopPropagation();
-            onViewPhoto();
-          }}
-        >
-          View Gallery →
-        </button>
       </div>
     </div>
   );
