@@ -101,6 +101,21 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
   const checkInDisplay = formatDateDisplay(formData.checkIn, 'Select Date');
   const checkOutDisplay = formatDateDisplay(formData.checkOut, 'Select Date');
 
+  // Calculate dynamic total price
+  let displayNights = 0;
+  let totalPrice = 0;
+  if (formData.checkIn && formData.checkOut) {
+    const checkInDate = new Date(formData.checkIn);
+    const checkOutDate = new Date(formData.checkOut);
+    if (checkOutDate > checkInDate) {
+      const diffTime = Math.abs(checkOutDate - checkInDate);
+      displayNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (selectedRoom?.priceNum > 0) {
+        totalPrice = displayNights * selectedRoom.priceNum;
+      }
+    }
+  }
+
   // Room thumbnail
   const roomThumbnail = selectedRoom?.img || "https://www.hilton.com/im/en/DXBAHHI/22071978/dxbah-room-bedroom.jpg?ch=2992&cw=5000&gravity=NorthWest&impolicy=crop&rh=700&rw=1100&xposition=0&yposition=171";
 
@@ -247,6 +262,18 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
                   <span className="summary-lbl">ROOM RATE</span>
                   <div className="summary-main-val">{selectedRoom.priceDisplay}</div>
                   <div className="summary-sub-val">* {selectedRoom.feeNote}</div>
+                </div>
+              </>
+            )}
+
+            {/* Dynamic Total Price */}
+            {displayNights > 0 && totalPrice > 0 && (
+              <>
+                <div className="summary-divider" />
+                <div className="summary-data-block">
+                  <span className="summary-lbl">TOTAL EST. ({displayNights} NIGHT{displayNights > 1 ? 'S' : ''})</span>
+                  <div className="summary-main-val" style={{ color: '#d4af37', fontSize: '22px', fontWeight: 'bold' }}>{totalPrice.toLocaleString()} AED</div>
+                  <div className="summary-sub-val">* Including taxes and fees</div>
                 </div>
               </>
             )}
