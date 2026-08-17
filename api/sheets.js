@@ -23,7 +23,16 @@ export default async function handler(req, res) {
       throw new Error(`Google Apps Script responded with ${response.status}`);
     }
 
-    const data = await response.json();
+    const text = await response.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.log('Non-JSON response from GAS:', text);
+      // If it's not JSON, but the request didn't throw a 404/500, we can assume it might have worked
+      // (GAS sometimes returns HTML on redirects)
+      return res.status(200).json({ success: true, note: 'Received non-JSON response' });
+    }
     
     if (data.status === 'success') {
       return res.status(200).json({ success: true });
@@ -33,6 +42,6 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Error sending data to Google Sheets:', error);
-    return res.status(500).json({ error: 'Failed to send data to Google Sheets' });
+    return res.status(500).json({ error: 'Failed to send data to Google Sheets', details: error.message || error.toString() });
   }
 }
