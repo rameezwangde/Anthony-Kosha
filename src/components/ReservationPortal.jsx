@@ -279,8 +279,8 @@ Looking forward to your confirmation.`);
                     onChange={handleChange}
                   >
                     <option value="">Select preference</option>
-                    <option value="2 Twin Beds">2 Twin Beds</option>
-                    <option value="1 King Bed">1 King Bed</option>
+                    <option value="King Double room - twin bed">King Double room - twin bed</option>
+                    <option value="King double room - king size bed">King double room - king size bed</option>
                   </select>
                 </div>
               )}
