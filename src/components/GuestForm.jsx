@@ -10,6 +10,7 @@ export default function GuestForm({ selectedRoom, hotelName }) {
     checkIn: '',
     checkOut: '',
     requests: '',
+    bedPreference: '',
   });
   const [summaryText, setSummaryText] = useState('');
   const [showSummary, setShowSummary] = useState(false);
@@ -28,7 +29,13 @@ export default function GuestForm({ selectedRoom, hotelName }) {
       return;
     }
 
-    const { guestName, phone, email, guestCount, checkIn, checkOut, requests } = formData;
+    const { guestName, phone, email, guestCount, checkIn, checkOut, requests, bedPreference } = formData;
+    const isDoubleRoom = selectedRoom?.id?.includes('-deluxe-double');
+
+    if (isDoubleRoom && !bedPreference) {
+      alert('Please select your bed preference.');
+      return;
+    }
 
     if (checkOut <= checkIn) {
       alert('Please choose a check-out date after check-in.');
@@ -39,7 +46,7 @@ export default function GuestForm({ selectedRoom, hotelName }) {
 
 Hotel: ${hotelName}
 Room: ${selectedRoom.value}
-Guest: ${guestName}
+${isDoubleRoom ? `Bed Preference: ${bedPreference}\n` : ''}Guest: ${guestName}
 Guests: ${guestCount}
 Mobile / WhatsApp: ${phone}
 Email: ${email}
@@ -107,6 +114,21 @@ Special requests: ${requests || 'None'}`;
             <option>5+ Guests</option>
           </select>
         </div>
+        {selectedRoom?.id?.includes('-deluxe-double') && (
+          <div>
+            <label className="flabel" htmlFor="bedPreference">Bed preference</label>
+            <select
+              id="bedPreference"
+              value={formData.bedPreference}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select preference</option>
+              <option value="2 Twin Beds">2 Twin Beds</option>
+              <option value="1 King Bed">1 King Bed</option>
+            </select>
+          </div>
+        )}
         <div>
           <label className="flabel" htmlFor="checkIn">Check-in</label>
           <input

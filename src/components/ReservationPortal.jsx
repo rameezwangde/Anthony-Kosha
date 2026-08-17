@@ -16,6 +16,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     requests: '',
     offeredPrice: '',
     roomQuantity: '1',
+    bedPreference: '',
   });
 
   const handleChange = (e) => {
@@ -49,6 +50,12 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     if (!selectedRoom) {
       alert('Please select a room first.');
       document.getElementById('rooms-section')?.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    const isDoubleRoom = selectedRoom?.id?.includes('-deluxe-double');
+    if (isDoubleRoom && !formData.bedPreference) {
+      alert('Please select your bed preference for the Double Room.');
       return;
     }
 
@@ -112,7 +119,7 @@ Guest Name: ${formData.guestName}
 Email: ${formData.email}
 Mobile: ${formData.phone}
 Guests: ${formData.guestCount}
-Check-In: ${formData.checkIn}
+${isDoubleRoom ? `Bed Preference: ${formData.bedPreference}\n` : ''}Check-In: ${formData.checkIn}
 Check-Out: ${formData.checkOut}
 Offered Price (per night): ${formData.offeredPrice ? formData.offeredPrice + ' AED' : 'Not specified'}
 Special Requests: ${formData.requests}
@@ -262,7 +269,23 @@ Looking forward to your confirmation.`);
                 </div>
               </div>
 
-              <div className="form-grid-2col">
+              {selectedRoom?.id?.includes('-deluxe-double') && (
+                <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                  <label htmlFor="bedPreference">BED PREFERENCE</label>
+                  <select
+                    id="bedPreference"
+                    required
+                    value={formData.bedPreference}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select preference</option>
+                    <option value="2 Twin Beds">2 Twin Beds</option>
+                    <option value="1 King Bed">1 King Bed</option>
+                  </select>
+                </div>
+              )}
+
+              <div className="form-grid-2col" style={{ marginTop: '1.5rem' }}>
                 <div className="form-field-group">
                   <label htmlFor="checkIn">CHECK-IN</label>
                   <input
@@ -394,11 +417,18 @@ Looking forward to your confirmation.`);
 
             <div className="summary-divider" />
 
-            {/* Guests */}
+            {/* Guests & Bed Preference */}
             <div className="summary-data-block">
               <span className="summary-lbl">GUESTS</span>
               <div className="summary-main-val">{formData.guestCount || 'Select Guests'}</div>
             </div>
+
+            {selectedRoom?.id?.includes('-deluxe-double') && formData.bedPreference && (
+              <div className="summary-data-block" style={{ marginTop: '0.75rem' }}>
+                <span className="summary-lbl">BED PREFERENCE</span>
+                <div className="summary-main-val">{formData.bedPreference}</div>
+              </div>
+            )}
 
             {/* Dynamic Guest Details */}
             {(formData.guestName || formData.phone || formData.email) && (
