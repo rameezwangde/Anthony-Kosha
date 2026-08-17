@@ -97,7 +97,14 @@ Special Requests: ${formData.requests}
 
 Looking forward to your confirmation.`);
       
-      window.location.href = `mailto:360eventsdxb@gmail.com?subject=${subject}&body=${body}`;
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        // On mobile, native mailto works perfectly for app pickers (Apple Mail, Gmail App)
+        window.location.href = `mailto:360eventsdxb@gmail.com?subject=${subject}&body=${body}`;
+      } else {
+        // On desktop, force open Gmail Web in a new tab to bypass the missing mail client issue
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=360eventsdxb@gmail.com&su=${subject}&body=${body}`, '_blank');
+      }
     }
   };
 
