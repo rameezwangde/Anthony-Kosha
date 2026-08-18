@@ -96,88 +96,6 @@
   color: #665A5E;
 }
 
-/* 1 AED Test Mode Banner & Toggle Switch */
-.stripe-test-toggle-card {
-  margin-top: 14px;
-  background: #FFF8E7;
-  border: 1px solid #E5C278;
-  border-radius: 10px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.test-toggle-left {
-  display: flex;
-  flex-direction: column;
-}
-
-.test-badge {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #76052D;
-}
-
-.test-desc {
-  font-size: 12px;
-  color: #665A5E;
-}
-
-.switch-toggle {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-}
-
-.switch-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background-color: #CCC;
-  transition: .4s;
-  border-radius: 24px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: .4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #76052D;
-}
-
-input:checked + .slider:before {
-  transform: translateX(20px);
-}
-
-.test-1aed-active-banner {
-  background: rgba(118, 5, 45, 0.08);
-  border-left: 3px solid #76052D;
-  padding: 8px 12px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  color: #76052D;
-  margin-bottom: 12px;
-}
 
 /* Grid Layout */
 .stripe-modal-grid {
@@ -349,38 +267,6 @@ input:checked + .slider:before {
   cursor: not-allowed;
 }
 
-.direct-1aed-link-wrapper {
-  margin-top: 14px;
-  text-align: center;
-}
-
-.or-divider {
-  display: block;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: #B5A8AC;
-  margin-bottom: 8px;
-}
-
-.stripe-1aed-link-btn {
-  width: 100%;
-  padding: 10px;
-  background: #FBF7F0;
-  border: 1px solid #C99A45;
-  color: #071E3D;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.stripe-1aed-link-btn:hover {
-  background: #76052D;
-  color: #FFFFFF;
-  border-color: #76052D;
-}
 
 .spinner-wrap {
   display: flex;

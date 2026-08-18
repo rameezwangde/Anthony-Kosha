@@ -38,9 +38,9 @@ export default function StripePaymentModal({
   const normalGrandTotal = normalSubtotal + normalCardFee;
 
   // 1 AED Test Mode vs Normal Pricing Calculation
-  const subtotal = isTest1Aed ? 1 : normalSubtotal;
-  const cardFee = isTest1Aed ? 0 : normalCardFee;
-  const grandTotal = isTest1Aed ? 1 : normalGrandTotal;
+  const subtotal = normalSubtotal;
+  const cardFee = normalCardFee;
+  const grandTotal = normalGrandTotal;
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -60,18 +60,12 @@ export default function StripePaymentModal({
           transactionId: 'ch_' + Math.random().toString(36).substr(2, 9),
           grandTotal,
           currency: 'DHS',
-          isTest1Aed,
         });
       }
     }, 1800);
   };
 
-  // Direct 1 AED Payment Link Handler (opens Stripe Dashboard test link if configured)
-  const handleOpen1AedLink = () => {
-    const testUrl = import.meta.env?.VITE_STRIPE_TEST_1AED_PAYMENT_URL || 'https://buy.stripe.com/test_1aed';
-    const prefilledUrl = `${testUrl}?prefilled_email=${encodeURIComponent(formData.email || '')}&client_reference_id=${encodeURIComponent(formData.guestName || 'TestUser')}`;
-    window.open(prefilledUrl, '_blank', 'noopener,noreferrer');
-  };
+
 
   return (
     <div className="stripe-modal-backdrop" onClick={onClose}>
@@ -90,22 +84,7 @@ export default function StripePaymentModal({
               <h3 className="stripe-modal-title">Complete Reservation Payment</h3>
               <p className="stripe-modal-subtitle">Official Wedding Booking Gateway for Anthony & Kosha</p>
 
-              {/* 1 AED Test Mode Banner & Switch */}
-              <div className="stripe-test-toggle-card">
-                <div className="test-toggle-left">
-                  <span className="test-badge">🧪 TESTING MODE</span>
-                  <span className="test-desc">Toggle to test a 1 AED (1 DHS) charge</span>
-                </div>
 
-                <label className="switch-toggle">
-                  <input
-                    type="checkbox"
-                    checked={isTest1Aed}
-                    onChange={(e) => setIsTest1Aed(e.target.checked)}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </div>
             </div>
 
             {/* Main Content Layout */}
@@ -135,23 +114,14 @@ export default function StripePaymentModal({
                 </div>
 
                 <div className="stripe-price-breakdown">
-                  {isTest1Aed ? (
-                    <div className="test-1aed-active-banner">
-                      ⚡ <strong>1 AED Test Mode Enabled</strong>
-                      <span>Pay 1 DHS for real/test transaction testing</span>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="price-row">
-                        <span>Room Rate ({nights} nights × {ratePerNight} DHS)</span>
-                        <span>{normalSubtotal.toLocaleString()} DHS</span>
-                      </div>
-                      <div className="price-row">
-                        <span>Card Processing Charge</span>
-                        <span>+{normalCardFee} DHS</span>
-                      </div>
-                    </>
-                  )}
+                  <div className="price-row">
+                    <span>Room Rate ({nights} nights × {ratePerNight} DHS)</span>
+                    <span>{subtotal.toLocaleString()} DHS</span>
+                  </div>
+                  <div className="price-row">
+                    <span>Card Processing Charge</span>
+                    <span>+{cardFee} DHS</span>
+                  </div>
 
                   <div className="price-row total-row">
                     <span>TOTAL PAYABLE</span>
@@ -240,17 +210,7 @@ export default function StripePaymentModal({
                   </button>
                 </form>
 
-                {/* Secondary Option: Direct 1 AED Payment Link */}
-                <div className="direct-1aed-link-wrapper">
-                  <span className="or-divider">OR</span>
-                  <button
-                    type="button"
-                    className="stripe-1aed-link-btn"
-                    onClick={handleOpen1AedLink}
-                  >
-                    🔗 Open Official 1 AED Stripe Payment Link ↗
-                  </button>
-                </div>
+
               </div>
             </div>
           </>
@@ -270,7 +230,7 @@ export default function StripePaymentModal({
               </div>
               <div className="receipt-row">
                 <span>Amount Paid:</span>
-                <strong>{grandTotal.toLocaleString()} DHS {isTest1Aed ? '(1 AED Test Mode)' : ''}</strong>
+                <strong>{grandTotal.toLocaleString()} DHS</strong>
               </div>
               <div className="receipt-row">
                 <span>Confirmation Email:</span>
