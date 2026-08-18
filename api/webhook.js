@@ -61,6 +61,37 @@ export default async function handler(req, res) {
     }
 
     if (customerEmail) {
+      // --- Google Sheets Logging ---
+      try {
+        if (process.env.GOOGLE_SHEETS_WEBHOOK_URL && session.metadata) {
+          const payload = {
+            hotelName: session.metadata.hotelName || '',
+            roomName: session.metadata.roomName || roomName,
+            guestName: session.metadata.guestName || customerName,
+            email: session.metadata.email || customerEmail,
+            phone: session.metadata.phone || '',
+            guestCount: session.metadata.guestCount || '',
+            bedPreference: session.metadata.bedPreference || '',
+            checkIn: session.metadata.checkIn || '',
+            checkOut: session.metadata.checkOut || '',
+            offeredPrice: session.amount_total ? (session.amount_total / 100) : '',
+            requests: session.metadata.requests || ''
+          };
+
+          const sheetResponse = await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          
+          if (!sheetResponse.ok) {
+            console.error('Sheet logging returned non-OK status:', sheetResponse.status);
+          }
+        }
+      } catch (err) {
+        console.error('Error logging to Google Sheets from webhook:', err);
+      }
+
       try {
         // Dispatch the email via Resend
         await resend.emails.send({

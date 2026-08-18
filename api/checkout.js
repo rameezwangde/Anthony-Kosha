@@ -8,7 +8,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { roomName, priceNum, nights, roomQuantity, customerEmail, customerName } = req.body;
+    const { 
+      roomName, priceNum, nights, roomQuantity, customerEmail, customerName,
+      hotelName, phone, guestCount, bedPreference, checkIn, checkOut, requests
+    } = req.body;
 
     // Validate required fields
     if (!roomName || !priceNum || !nights || !customerEmail) {
@@ -22,6 +25,19 @@ export default async function handler(req, res) {
       payment_method_types: ['card'],
       customer_email: customerEmail,
       client_reference_id: customerName,
+      metadata: {
+        hotelName: hotelName || '',
+        roomName: roomName || '',
+        guestName: customerName || '',
+        email: customerEmail || '',
+        phone: phone || '',
+        guestCount: guestCount || '',
+        bedPreference: bedPreference || '',
+        checkIn: checkIn || '',
+        checkOut: checkOut || '',
+        // Truncate requests if too long (Stripe limit is 500 chars)
+        requests: (requests || '').substring(0, 499),
+      },
       line_items: [
         {
           price_data: {

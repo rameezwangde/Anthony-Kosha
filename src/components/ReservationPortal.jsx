@@ -82,41 +82,27 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (selectedRoom.priceNum && selectedRoom.priceNum > 0) {
-      // Log submission attempt to Google Sheets
-      try {
-        const payload = {
-          hotelName,
-          roomName: selectedRoom.name,
-          guestName: formData.guestName,
-          email: formData.email,
-          phone: formData.phone,
-          guestCount: formData.guestCount,
-          bedPreference: formData.bedPreference,
-          checkIn: formData.checkIn,
-          checkOut: formData.checkOut,
-          offeredPrice: formData.offeredPrice,
-          requests: formData.requests
-        };
-        await fetch('/api/sheets', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-      } catch (err) {
-        console.error('Sheet logging error:', err);
-      }
-
       try {
         const response = await fetch('/api/checkout', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             roomName: selectedRoom.name,
             priceNum: selectedRoom.priceNum,
-            nights,
-            roomQuantity: parseInt(formData.roomQuantity || 1),
+            nights: nights,
+            roomQuantity: parseInt(formData.roomQuantity),
             customerEmail: formData.email,
             customerName: formData.guestName,
+            // Include extra metadata for Stripe -> Sheets logging
+            hotelName,
+            phone: formData.phone,
+            guestCount: formData.guestCount,
+            bedPreference: formData.bedPreference,
+            checkIn: formData.checkIn,
+            checkOut: formData.checkOut,
+            requests: formData.requests,
           }),
         });
         
