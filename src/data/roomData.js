@@ -64,13 +64,13 @@ export const roomData = {
       name: "King Deluxe room with Burj Khalifa view (Up to 3 Guests)",
       category: "Deluxe",
       value: "King Deluxe room with Burj Khalifa view",
-      priceNum: 0,
-      priceDisplay: "Price on request",
-      feeNote: "",
+      priceNum: 900,
+      priceDisplay: "900 DHS / night (TESTING)",
+      feeNote: "+ any card charges",
       desc: "Stunning King room featuring iconic views of the Burj Khalifa, spacious interior, and a luxury marble bathroom. Accommodates up to 3 guests.",
       img: "https://www.hilton.com/im/en/DXBAHHI/22509517/dxbah-room-overview.jpg?impolicy=crop&cw=5000&ch=2992&gravity=NorthWest&xposition=0&yposition=171&rw=1600&rh=1000",
 
-      tags: ["1 King Bed", "Up to 3 Guests", "Price on request"],
+      tags: ["1 King Bed", "Up to 3 Guests", "900 DHS / night"],
     },
     {
       id: "hilton-panasonic-suite",
