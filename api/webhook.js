@@ -1,3 +1,4 @@
+// Trigger Vercel deployment to apply new STRIPE_WEBHOOK_SECRET
 import Stripe from 'stripe';
 import { Resend } from 'resend';
 
