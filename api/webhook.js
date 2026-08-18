@@ -81,13 +81,18 @@ export default async function handler(req, res) {
 
           const sheetResponse = await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
+            headers: { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json' 
+            },
+            body: JSON.stringify(payload)
           });
           
           if (!sheetResponse.ok) {
             console.error('Sheet logging returned non-OK status:', sheetResponse.status);
           }
+        } else {
+          console.error('Missing GOOGLE_SHEETS_WEBHOOK_URL or session.metadata in webhook');
         }
       } catch (err) {
         console.error('Error logging to Google Sheets from webhook:', err);
