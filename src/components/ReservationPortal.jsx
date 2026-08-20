@@ -17,6 +17,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     offeredPrice: '',
     roomQuantity: '1',
     bedPreference: '',
+    roomType: '',
   });
 
   const handleChange = (e) => {
@@ -123,7 +124,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       try {
         const payload = {
           hotelName,
-          roomName: selectedRoom.name,
+          roomName: selectedRoom.isCustomForm ? (formData.roomType || 'Room') : selectedRoom.name,
           guestName: formData.guestName,
           email: formData.email,
           phone: formData.phone,
@@ -147,7 +148,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
       const body = encodeURIComponent(`Hello Wedding Team,
 
 I would like to request a booking for the following room:
-Room: ${selectedRoom.name}
+Room: ${selectedRoom.isCustomForm ? (formData.roomType || 'Room') : selectedRoom.name}
 Hotel: ${hotelName}
 Guest Name: ${formData.guestName}
 Email: ${formData.email}
@@ -303,6 +304,22 @@ Looking forward to your confirmation.`);
                 </div>
               </div>
 
+              {selectedRoom?.isCustomForm && (
+                <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                  <label htmlFor="roomType">ROOM TYPE</label>
+                  <select
+                    id="roomType"
+                    required
+                    value={formData.roomType}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Room Type</option>
+                    <option value="Single Room">Single Room</option>
+                    <option value="Double Room">Double Room</option>
+                  </select>
+                </div>
+              )}
+
               {selectedRoom?.id?.includes('-deluxe-double') && (
                 <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
                   <label htmlFor="bedPreference">BED PREFERENCE</label>
@@ -393,7 +410,7 @@ Looking forward to your confirmation.`);
               <img src={roomThumbnail} alt="Selected Room" className="summary-room-thumb" />
               <div className="summary-property-info">
                 <h4>{hotelName}</h4>
-                <div className="summary-room-name">{selectedRoom ? selectedRoom.name : 'Select a Room Above'}</div>
+                <div className="summary-room-name">{selectedRoom ? (selectedRoom.isCustomForm && formData.roomType ? formData.roomType : selectedRoom.name) : 'Select a Room Above'}</div>
               </div>
             </div>
 

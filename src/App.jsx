@@ -24,7 +24,17 @@ function MainPage() {
 
   const handleHotelSelect = (key) => {
     setActiveKey(key);
-    setSelectedRoom(null); // Reset selected room when hotel switches
+    if (key === 'swissotel' || key === 'holidayinn') {
+      setSelectedRoom({
+        id: `${key}-custom`,
+        name: hotelInfo[key].name,
+        priceNum: 0,
+        priceDisplay: "Price on request",
+        isCustomForm: true,
+      });
+    } else {
+      setSelectedRoom(null); // Reset selected room when hotel switches
+    }
   };
 
   const handleRoomSelect = (room) => {
@@ -61,13 +71,15 @@ function MainPage() {
       <HotelSection activeKey={activeKey} onSelect={handleHotelSelect} />
 
       {/* 4. Room Grid Section (2x2 Horizontal Cards) */}
-      <RoomGrid
-        activeKey={activeKey}
-        hotelName={currentHotelName}
-        selectedRoom={selectedRoom}
-        onSelectRoom={handleRoomSelect}
-        onViewPhoto={handleOpenPhotoModal}
-      />
+      {activeKey !== 'swissotel' && activeKey !== 'holidayinn' && (
+        <RoomGrid
+          activeKey={activeKey}
+          hotelName={currentHotelName}
+          selectedRoom={selectedRoom}
+          onSelectRoom={handleRoomSelect}
+          onViewPhoto={handleOpenPhotoModal}
+        />
+      )}
 
       {/* 5. Reservation Form & Deep Burgundy Booking Summary Card */}
       <ReservationPortal selectedRoom={selectedRoom} hotelName={currentHotelName} />
