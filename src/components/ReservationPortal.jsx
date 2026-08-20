@@ -110,11 +110,11 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             airportTransferPrice: transferPrice,
           }),
         });
-        
+
         if (!response.ok) {
           throw new Error('Failed to generate checkout session');
         }
-        
+
         const data = await response.json();
         if (data.url) {
           window.location.href = data.url;
@@ -166,7 +166,7 @@ Offered Price (per night): ${formData.offeredPrice ? formData.offeredPrice + ' A
 Special Requests: ${formData.requests}
 
 Looking forward to your confirmation.`);
-      
+
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       if (isMobile) {
         // On mobile, native mailto works perfectly for app pickers (Apple Mail, Gmail App)
@@ -202,8 +202,8 @@ Looking forward to your confirmation.`);
     'GMC Yokon/Suburban (4X4)': 250,
     'Mercedes V Class': 275,
   };
-  const transferPrice = formData.airportTransferRequired === 'Yes' && vehiclePrices[formData.airportTransferVehicle] 
-    ? vehiclePrices[formData.airportTransferVehicle] 
+  const transferPrice = formData.airportTransferRequired === 'Yes' && vehiclePrices[formData.airportTransferVehicle]
+    ? vehiclePrices[formData.airportTransferVehicle]
     : 0;
 
   // Calculate dynamic total price
@@ -211,7 +211,7 @@ Looking forward to your confirmation.`);
   let subtotal = 0;
   let cardFee = 0;
   let totalPrice = 0;
-  
+
   if (formData.checkIn && formData.checkOut) {
     const checkInDate = new Date(formData.checkIn);
     const checkOutDate = new Date(formData.checkOut);
@@ -436,7 +436,7 @@ Looking forward to your confirmation.`);
                 </div>
 
                 <button type="submit" className="continue-payment-btn">
-                  {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0) 
+                  {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0)
                     ? 'Mail Us →'
                     : 'Continue to Secure Payment →'}
                 </button>
@@ -545,9 +545,9 @@ Looking forward to your confirmation.`);
                 <div className="summary-divider" />
                 <div className="summary-data-block">
                   <span className="summary-lbl">GUEST DETAILS</span>
-                  {formData.guestName && <div className="summary-main-val" style={{marginBottom: '4px'}}>{formData.guestName}</div>}
-                  {formData.phone && <div className="summary-sub-val" style={{color: '#EAE0D0', marginBottom: '2px'}}>{formData.phone}</div>}
-                  {formData.email && <div className="summary-sub-val" style={{color: '#EAE0D0'}}>{formData.email}</div>}
+                  {formData.guestName && <div className="summary-main-val" style={{ marginBottom: '4px' }}>{formData.guestName}</div>}
+                  {formData.phone && <div className="summary-sub-val" style={{ color: '#EAE0D0', marginBottom: '2px' }}>{formData.phone}</div>}
+                  {formData.email && <div className="summary-sub-val" style={{ color: '#EAE0D0' }}>{formData.email}</div>}
                 </div>
               </>
             )}
@@ -558,7 +558,7 @@ Looking forward to your confirmation.`);
               className="summary-gold-cta-btn"
               onClick={handleSubmit}
             >
-              {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0) 
+              {selectedRoom && (!selectedRoom.priceNum || selectedRoom.priceNum === 0)
                 ? 'MAIL US →'
                 : 'CONTINUE TO SECURE PAYMENT →'}
             </button>

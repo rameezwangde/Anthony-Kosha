@@ -20,21 +20,24 @@ export default function RoomGrid({
   const allRooms = roomData[activeKey] || [];
   const visibleRooms = showAllRooms ? allRooms : allRooms.slice(0, 2);
   const hasMoreRooms = allRooms.length > 2;
+  const isCustomHotel = activeKey === 'swissotel' || activeKey === 'holidayinn';
 
   return (
     <section className="room-section" id="rooms-section">
       <div className="site-container">
-        {/* Section Header with Active Hotel Name */}
-        <div className="room-section-header">
-          <span className="section-tag">02 · SELECT YOUR ROOM · {hotelName?.toUpperCase()}</span>
-          <h2 className="section-heading-large">Find Your Stay at {hotelName}</h2>
-          <p className="section-subtext">
-            Thoughtfully selected rooms and suites for Anthony &amp; Kosha's wedding celebration at {hotelName}.
-          </p>
-        </div>
+        {!isCustomHotel && (
+          <>
+            {/* Section Header with Active Hotel Name */}
+            <div className="room-section-header">
+              <span className="section-tag">02 · SELECT YOUR ROOM · {hotelName?.toUpperCase()}</span>
+              <h2 className="section-heading-large">Find Your Stay at {hotelName}</h2>
+              <p className="section-subtext">
+                Thoughtfully selected rooms and suites for Anthony &amp; Kosha's wedding celebration at {hotelName}.
+              </p>
+            </div>
 
-        {/* Room Grid */}
-        <div className="ref-rooms-grid">
+            {/* Room Grid */}
+            <div className="ref-rooms-grid">
           {visibleRooms.map((room) => (
             <RoomCard
               key={room.id}
@@ -57,6 +60,8 @@ export default function RoomGrid({
               VIEW MORE ROOMS AT {hotelName?.toUpperCase().split(' ')[0]}
             </button>
           </div>
+        )}
+          </>
         )}
 
         {/* Important Info Section */}

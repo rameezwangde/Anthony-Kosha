@@ -71,15 +71,13 @@ function MainPage() {
       <HotelSection activeKey={activeKey} onSelect={handleHotelSelect} />
 
       {/* 4. Room Grid Section (2x2 Horizontal Cards) */}
-      {activeKey !== 'swissotel' && activeKey !== 'holidayinn' && (
-        <RoomGrid
-          activeKey={activeKey}
-          hotelName={currentHotelName}
-          selectedRoom={selectedRoom}
-          onSelectRoom={handleRoomSelect}
-          onViewPhoto={handleOpenPhotoModal}
-        />
-      )}
+      <RoomGrid
+        activeKey={activeKey}
+        hotelName={currentHotelName}
+        selectedRoom={selectedRoom}
+        onSelectRoom={handleRoomSelect}
+        onViewPhoto={handleOpenPhotoModal}
+      />
 
       {/* 5. Reservation Form & Deep Burgundy Booking Summary Card */}
       <ReservationPortal selectedRoom={selectedRoom} hotelName={currentHotelName} />

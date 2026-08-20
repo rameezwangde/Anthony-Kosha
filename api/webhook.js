@@ -76,7 +76,8 @@ export default async function handler(req, res) {
             checkIn: session.metadata.checkIn || '',
             checkOut: session.metadata.checkOut || '',
             offeredPrice: session.amount_total ? (session.amount_total / 100) : '',
-            requests: session.metadata.requests || ''
+            requests: session.metadata.requests || '',
+            airportTransferVehicle: session.metadata.airportTransfer || 'Not Required'
           };
 
           const sheetResponse = await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
