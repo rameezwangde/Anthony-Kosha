@@ -34,6 +34,14 @@ export default function Footer() {
                 <strong>Habtoor Palace Dubai, LXR Hotels</strong>
                 <span>Al Habtoor City, Business Bay, Dubai</span>
               </li>
+              <li>
+                <strong>Swissôtel Al Murooj Dubai</strong>
+                <span>Downtown Dubai</span>
+              </li>
+              <li>
+                <strong>Holiday Inn Express Dubai - Safa Park</strong>
+                <span>Safa Park, Dubai</span>
+              </li>
             </ul>
           </div>
 
