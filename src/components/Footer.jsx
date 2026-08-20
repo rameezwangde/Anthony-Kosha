@@ -26,22 +26,7 @@ export default function Footer() {
                 <strong>Hilton Dubai Al Habtoor City</strong>
                 <span>Al Habtoor City, Business Bay, Dubai</span>
               </li>
-              <li>
-                <strong>V Hotel Dubai, Curio Collection</strong>
-                <span>Al Habtoor City, Business Bay, Dubai</span>
-              </li>
-              <li>
-                <strong>Habtoor Palace Dubai, LXR Hotels</strong>
-                <span>Al Habtoor City, Business Bay, Dubai</span>
-              </li>
-              <li>
-                <strong>Swissôtel Al Murooj Dubai</strong>
-                <span>Downtown Dubai</span>
-              </li>
-              <li>
-                <strong>Holiday Inn Express Dubai - Safa Park</strong>
-                <span>Safa Park, Dubai</span>
-              </li>
+
             </ul>
           </div>
 
@@ -67,7 +52,7 @@ export default function Footer() {
             <ul className="footer-list">
               <li>
                 <strong>Christina</strong>
-                <span>Transport Coordinator</span>
+                <span>Hotel &amp; Transport executive</span>
               </li>
               <li>
                 <a href="tel:+971501785852" className="footer-contact-link">📞 +971 50 178 5852</a>
