@@ -307,8 +307,8 @@ Looking forward to your confirmation.`);
                     required
                     value={formData.guestCount}
                     onChange={handleChange}
-                    disabled={!!selectedRoom}
-                    style={{ backgroundColor: selectedRoom ? '#f0f0f0' : 'transparent', cursor: selectedRoom ? 'not-allowed' : 'pointer' }}
+                    disabled={!selectedRoom?.isCustomForm}
+                    style={{ backgroundColor: !selectedRoom?.isCustomForm ? '#f0f0f0' : 'transparent', cursor: !selectedRoom?.isCustomForm ? 'not-allowed' : 'pointer' }}
                   >
                     <option value="">Select</option>
                     <option value="1 Guest">1 Guest</option>
