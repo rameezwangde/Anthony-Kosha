@@ -59,7 +59,7 @@ export default function Footer() {
             <ul className="footer-list">
               <li>
                 <strong>Christina</strong>
-                <span>Wedding Coordinator</span>
+                <span>Transport Coordinator</span>
               </li>
               <li>
                 <a href="tel:+971501785852" className="footer-contact-link">📞 +971 50 178 5852</a>
