@@ -10,7 +10,8 @@ export default async function handler(req, res) {
   try {
     const { 
       roomName, priceNum, nights, roomQuantity, customerEmail, customerName,
-      hotelName, phone, guestCount, bedPreference, checkIn, checkOut, requests
+      hotelName, phone, guestCount, bedPreference, checkIn, checkOut, requests,
+      airportTransferVehicle, airportTransferPrice
     } = req.body;
 
     // Validate required fields
@@ -35,6 +36,7 @@ export default async function handler(req, res) {
         bedPreference: bedPreference || '',
         checkIn: checkIn || '',
         checkOut: checkOut || '',
+        airportTransfer: airportTransferVehicle || 'Not Required',
         // Truncate requests if too long (Stripe limit is 500 chars)
         requests: (requests || '').substring(0, 499),
       },
@@ -51,11 +53,22 @@ export default async function handler(req, res) {
           },
           quantity: roomQuantity || 1,
         },
+        ...(airportTransferPrice ? [{
+          price_data: {
+            currency: 'aed',
+            unit_amount: airportTransferPrice * 100, 
+            product_data: {
+              name: `Airport Transfer (One Way)`,
+              description: airportTransferVehicle,
+            },
+          },
+          quantity: 1,
+        }] : []),
         {
           price_data: {
             currency: 'aed',
             // 4.5% card processing fee on the subtotal (in fils)
-            unit_amount: Math.ceil(priceNum * nights * (roomQuantity || 1) * 0.045 * 100), 
+            unit_amount: Math.ceil((priceNum * nights * (roomQuantity || 1) + (airportTransferPrice || 0)) * 0.045 * 100), 
             product_data: {
               name: 'Card Processing Fee (4.5%)',
               description: 'Standard secure payment gateway fee',

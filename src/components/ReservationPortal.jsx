@@ -18,6 +18,8 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     roomQuantity: '1',
     bedPreference: '',
     roomType: '',
+    airportTransferRequired: 'No',
+    airportTransferVehicle: '',
   });
 
   const handleChange = (e) => {
@@ -96,7 +98,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             roomQuantity: parseInt(formData.roomQuantity),
             customerEmail: formData.email,
             customerName: formData.guestName,
-            // Include extra metadata for Stripe -> Sheets logging
+            // Include extra metadata for Stripe -> Stripe/Sheets logging
             hotelName,
             phone: formData.phone,
             guestCount: formData.guestCount,
@@ -104,6 +106,8 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             checkIn: formData.checkIn,
             checkOut: formData.checkOut,
             requests: formData.requests,
+            airportTransferVehicle: formData.airportTransferRequired === 'Yes' ? formData.airportTransferVehicle : '',
+            airportTransferPrice: transferPrice,
           }),
         });
         
@@ -133,7 +137,8 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
           checkIn: formData.checkIn,
           checkOut: formData.checkOut,
           offeredPrice: formData.offeredPrice,
-          requests: formData.requests
+          requests: formData.requests,
+          airportTransferVehicle: formData.airportTransferRequired === 'Yes' ? formData.airportTransferVehicle : 'Not Required'
         };
         await fetch('/api/sheets', {
           method: 'POST',
@@ -156,6 +161,7 @@ Mobile: ${formData.phone}
 Guests: ${formData.guestCount}
 ${isDoubleRoom ? `Bed Preference: ${formData.bedPreference}\n` : ''}Check-In: ${formData.checkIn}
 Check-Out: ${formData.checkOut}
+Airport Transfer: ${formData.airportTransferRequired === 'Yes' ? formData.airportTransferVehicle : 'Not required'}
 Offered Price (per night): ${formData.offeredPrice ? formData.offeredPrice + ' AED' : 'Not specified'}
 Special Requests: ${formData.requests}
 
@@ -190,6 +196,16 @@ Looking forward to your confirmation.`);
   const checkInDisplay = formatDateDisplay(formData.checkIn, 'Select Date');
   const checkOutDisplay = formatDateDisplay(formData.checkOut, 'Select Date');
 
+  const vehiclePrices = {
+    'Lexus ES-350': 150,
+    'Previa / Carnival': 165,
+    'GMC Yokon/Suburban (4X4)': 250,
+    'Mercedes V Class': 275,
+  };
+  const transferPrice = formData.airportTransferRequired === 'Yes' && vehiclePrices[formData.airportTransferVehicle] 
+    ? vehiclePrices[formData.airportTransferVehicle] 
+    : 0;
+
   // Calculate dynamic total price
   let displayNights = 0;
   let subtotal = 0;
@@ -204,8 +220,8 @@ Looking forward to your confirmation.`);
       displayNights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       if (selectedRoom?.priceNum > 0) {
         subtotal = displayNights * selectedRoom.priceNum * parseInt(formData.roomQuantity || 1);
-        cardFee = subtotal * 0.045; // 4.5% card charge
-        totalPrice = subtotal + cardFee;
+        cardFee = (subtotal + transferPrice) * 0.045; // 4.5% card charge
+        totalPrice = subtotal + transferPrice + cardFee;
       }
     }
   }
@@ -374,7 +390,37 @@ Looking forward to your confirmation.`);
                 </div>
               )}
 
-              <div className="form-field-group full-width">
+              <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                <label htmlFor="airportTransferRequired">AIRPORT TRANSFER REQUIRED?</label>
+                <select
+                  id="airportTransferRequired"
+                  value={formData.airportTransferRequired}
+                  onChange={handleChange}
+                >
+                  <option value="No">No, thank you</option>
+                  <option value="Yes">Yes, please</option>
+                </select>
+              </div>
+
+              {formData.airportTransferRequired === 'Yes' && (
+                <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                  <label htmlFor="airportTransferVehicle">SELECT VEHICLE (ONE WAY)</label>
+                  <select
+                    id="airportTransferVehicle"
+                    value={formData.airportTransferVehicle}
+                    onChange={handleChange}
+                    required={formData.airportTransferRequired === 'Yes'}
+                  >
+                    <option value="">Select a vehicle...</option>
+                    <option value="Lexus ES-350">Lexus ES-350 (150 DHS)</option>
+                    <option value="Previa / Carnival">Previa / Carnival (165 DHS)</option>
+                    <option value="GMC Yokon/Suburban (4X4)">GMC Yokon/Suburban (4X4) (250 DHS)</option>
+                    <option value="Mercedes V Class">Mercedes V Class (275 DHS)</option>
+                  </select>
+                </div>
+              )}
+
+              <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
                 <label htmlFor="requests">SPECIAL REQUESTS</label>
                 <textarea
                   id="requests"
@@ -423,6 +469,18 @@ Looking forward to your confirmation.`);
                   <div className="summary-main-val">{selectedRoom.priceDisplay}</div>
                   <div className="summary-sub-val">* {selectedRoom.feeNote}</div>
                   <div className="summary-sub-val" style={{ color: '#d4af37', marginTop: '4px' }}>☕ Includes Daily Breakfast</div>
+                </div>
+              </>
+            )}
+
+            {/* Airport Transfer */}
+            {formData.airportTransferRequired === 'Yes' && formData.airportTransferVehicle && (
+              <>
+                <div className="summary-divider" />
+                <div className="summary-data-block">
+                  <span className="summary-lbl">AIRPORT TRANSFER</span>
+                  <div className="summary-main-val">{formData.airportTransferVehicle}</div>
+                  <div className="summary-sub-val" style={{ color: '#EAE0D0' }}>{vehiclePrices[formData.airportTransferVehicle]} AED (One Way)</div>
                 </div>
               </>
             )}
