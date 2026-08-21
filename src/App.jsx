@@ -24,7 +24,7 @@ function MainPage() {
 
   const handleHotelSelect = (key) => {
     setActiveKey(key);
-    if (key === 'swissotel' || key === 'holidayinn') {
+    if (key === 'holidayinn') {
       setSelectedRoom({
         id: `${key}-custom`,
         name: hotelInfo[key].name,

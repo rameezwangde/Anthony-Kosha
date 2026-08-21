@@ -5,13 +5,12 @@ export default function HotelSection({ activeKey, onSelect }) {
   const hiltonImg = "https://www.valueaddedtravel.com/assets/components/phpthumbof/cache/exterior.baad4e193154fe2018b6b5b828f3f075.jpg";
   const vhotelImg = "https://media-cdn.holidaycheck.com/w_1280,h_720,c_fit,q_auto,f_auto/ugc/images/83c4fa4e-570e-48be-9eb7-ecf52ffa5219";
   const habtoorImg = "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/15/28/77/hotel-exterior.jpg?w=700&h=-1&s=1";
-  const swissotelImg = "https://www.swissotel.com/assets/0/92/2119/6442452246/6442452289/6442452291/6442452445/a79c7dc5-8bba-4858-83ae-7c2d158054a4.jpg";
+
   const holidayinnImg = "https://th.bing.com/th/id/OIP.M_0OuAs-num-UaGZX5quuAHaE8?w=302&h=201&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3";
 
   const getHotelImg = (key) => {
     if (key === 'vhotel') return vhotelImg;
     if (key === 'habtoorpalace') return habtoorImg;
-    if (key === 'swissotel') return swissotelImg;
     if (key === 'holidayinn') return holidayinnImg;
     return hiltonImg;
   };
@@ -58,6 +57,10 @@ export default function HotelSection({ activeKey, onSelect }) {
                   <div className="ref-hotel-fullname">{hotel.name}</div>
                   <div className="ref-hotel-tagline-v2">{hotel.tagline}</div>
 
+                  {hotel.key === 'hilton' && (
+                    <div className="bride-groom-badge">👰🤵 Bride & Groom Staying Here</div>
+                  )}
+
                   {/* Perks row */}
                   <div className="hotel-perks-row">
                     {hotel.perks?.slice(0, 2).map((perk, idx) => (
@@ -89,15 +92,15 @@ export default function HotelSection({ activeKey, onSelect }) {
             <div className="confirmation-right">
               <span className="confirmation-status-pill">✓ Hotel Locked</span>
               <a
-                href={activeKey === 'swissotel' || activeKey === 'holidayinn' ? '#reservation-section' : '#rooms-section'}
+                href={activeKey === 'holidayinn' ? '#reservation-section' : '#rooms-section'}
                 className="scroll-to-rooms-btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  const targetId = activeKey === 'swissotel' || activeKey === 'holidayinn' ? 'reservation-section' : 'rooms-section';
+                  const targetId = activeKey === 'holidayinn' ? 'reservation-section' : 'rooms-section';
                   document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                {activeKey === 'swissotel' || activeKey === 'holidayinn' ? 'Proceed to Form ↓' : 'View Rooms Below ↓'}
+                {activeKey === 'holidayinn' ? 'Proceed to Form ↓' : 'View Rooms Below ↓'}
               </a>
             </div>
           </div>

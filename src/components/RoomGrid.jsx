@@ -20,7 +20,7 @@ export default function RoomGrid({
   const allRooms = roomData[activeKey] || [];
   const visibleRooms = showAllRooms ? allRooms : allRooms.slice(0, 2);
   const hasMoreRooms = allRooms.length > 2;
-  const isCustomHotel = activeKey === 'swissotel' || activeKey === 'holidayinn';
+  const isCustomHotel = activeKey === 'holidayinn';
 
   return (
     <section className="room-section" id="rooms-section">

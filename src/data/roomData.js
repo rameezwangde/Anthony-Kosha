@@ -29,16 +29,7 @@ export const hotelInfo = {
     location: "Al Habtoor City, Business Bay, Dubai",
     perks: ["24/7 Personal Butler Service", "Bentley House Car Service", "Silk Spa & Rooftop Pools", "Grand Beaux-Arts Architecture"],
   },
-  swissotel: {
-    key: "swissotel",
-    name: "Swissôtel Al Murooj Dubai",
-    tagline: "Resort-Style Oasis in Downtown Dubai",
-    shortName: "Swissôtel Al Murooj",
-    categoryTag: "Resort Style",
-    desc: "A luxurious resort-style hotel seamlessly blending city sophistication with relaxed resort vibes. Located in the heart of Downtown Dubai.",
-    location: "Downtown Dubai",
-    perks: ["Resort Style Pool", "Downtown Location", "Spacious Rooms", "Luxury Amenities"],
-  },
+
   holidayinn: {
     key: "holidayinn",
     name: "Holiday Inn Express Dubai - Safa Park",
