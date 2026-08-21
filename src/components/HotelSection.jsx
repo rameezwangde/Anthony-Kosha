@@ -65,6 +65,10 @@ export default function HotelSection({ activeKey, onSelect }) {
                     <div className="connected-badge">Connected to Hilton Habtoor</div>
                   )}
 
+                  {hotel.key === 'holidayinn' && (
+                    <div className="connected-badge">15 mins away from Official Wedding Hub</div>
+                  )}
+
                   {/* Perks row */}
                   <div className="hotel-perks-row">
                     {hotel.perks?.slice(0, 2).map((perk, idx) => (
