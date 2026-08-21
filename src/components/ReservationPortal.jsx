@@ -19,6 +19,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
     bedPreference: '',
     roomType: '',
     airportTransferRequired: 'No',
+    airportTransferType: 'One Way',
     airportTransferVehicle: '',
   });
 
@@ -103,10 +104,9 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
             phone: formData.phone,
             guestCount: formData.guestCount,
             bedPreference: formData.bedPreference,
-            checkIn: formData.checkIn,
             checkOut: formData.checkOut,
             requests: formData.requests,
-            airportTransferVehicle: formData.airportTransferRequired === 'Yes' ? formData.airportTransferVehicle : '',
+            airportTransferVehicle: formData.airportTransferRequired === 'Yes' ? `${formData.airportTransferVehicle} (${formData.airportTransferType})` : '',
             airportTransferPrice: transferPrice,
           }),
         });
@@ -138,7 +138,7 @@ export default function ReservationPortal({ selectedRoom, hotelName }) {
           checkOut: formData.checkOut,
           offeredPrice: formData.offeredPrice,
           requests: formData.requests,
-          airportTransferVehicle: formData.airportTransferRequired === 'Yes' ? formData.airportTransferVehicle : 'Not Required'
+          airportTransferVehicle: formData.airportTransferRequired === 'Yes' ? `${formData.airportTransferVehicle} (${formData.airportTransferType})` : 'Not Required'
         };
         await fetch('/api/sheets', {
           method: 'POST',
@@ -161,7 +161,7 @@ Mobile: ${formData.phone}
 Guests: ${formData.guestCount}
 ${isDoubleRoom ? `Bed Preference: ${formData.bedPreference}\n` : ''}Check-In: ${formData.checkIn}
 Check-Out: ${formData.checkOut}
-Airport Transfer: ${formData.airportTransferRequired === 'Yes' ? formData.airportTransferVehicle : 'Not required'}
+Airport Transfer: ${formData.airportTransferRequired === 'Yes' ? `${formData.airportTransferVehicle} (${formData.airportTransferType})` : 'Not required'}
 Offered Price (per night): ${formData.offeredPrice ? formData.offeredPrice + ' AED' : 'Not specified'}
 Special Requests: ${formData.requests}
 
@@ -202,9 +202,10 @@ Looking forward to your confirmation.`);
     'GMC Yokon/Suburban (4X4)': 250,
     'Mercedes V Class': 275,
   };
-  const transferPrice = formData.airportTransferRequired === 'Yes' && vehiclePrices[formData.airportTransferVehicle]
+  const baseTransferPrice = formData.airportTransferRequired === 'Yes' && vehiclePrices[formData.airportTransferVehicle]
     ? vehiclePrices[formData.airportTransferVehicle]
     : 0;
+  const transferPrice = formData.airportTransferType === 'Roundtrip' ? baseTransferPrice * 2 : baseTransferPrice;
 
   // Calculate dynamic total price
   let displayNights = 0;
@@ -403,21 +404,38 @@ Looking forward to your confirmation.`);
               </div>
 
               {formData.airportTransferRequired === 'Yes' && (
-                <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
-                  <label htmlFor="airportTransferVehicle">SELECT VEHICLE (ONE WAY)</label>
-                  <select
-                    id="airportTransferVehicle"
-                    value={formData.airportTransferVehicle}
-                    onChange={handleChange}
-                    required={formData.airportTransferRequired === 'Yes'}
-                  >
-                    <option value="">Select a vehicle...</option>
-                    <option value="Lexus ES-350">Lexus ES-350 (150 DHS)</option>
-                    <option value="Previa / Carnival">Previa / Carnival (165 DHS)</option>
-                    <option value="GMC Yokon/Suburban (4X4)">GMC Yokon/Suburban (4X4) (250 DHS)</option>
-                    <option value="Mercedes V Class">Mercedes V Class (275 DHS)</option>
-                  </select>
-                </div>
+                <>
+                  <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                    <label htmlFor="airportTransferType">TRANSFER TYPE</label>
+                    <select
+                      id="airportTransferType"
+                      value={formData.airportTransferType}
+                      onChange={handleChange}
+                      required={formData.airportTransferRequired === 'Yes'}
+                    >
+                      <option value="One Way">One Way</option>
+                      <option value="Roundtrip">Roundtrip</option>
+                    </select>
+                  </div>
+                  <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
+                    <label htmlFor="airportTransferVehicle">SELECT VEHICLE</label>
+                    <select
+                      id="airportTransferVehicle"
+                      value={formData.airportTransferVehicle}
+                      onChange={handleChange}
+                      required={formData.airportTransferRequired === 'Yes'}
+                    >
+                      <option value="">Select a vehicle...</option>
+                      <option value="Lexus ES-350">Lexus ES-350 (4 Pax, 2 Bags, 2 Carry-ons) - {formData.airportTransferType === 'Roundtrip' ? '300 DHS (~$82) Roundtrip' : '150 DHS (~$41) per way'}</option>
+                      <option value="Previa / Carnival">Previa / Carnival (6 Pax, 4 Bags, 2 Carry-ons) - {formData.airportTransferType === 'Roundtrip' ? '330 DHS (~$90) Roundtrip' : '165 DHS (~$45) per way'}</option>
+                      <option value="GMC Yokon/Suburban (4X4)">GMC Yukon/Suburban (6 Pax, 2 Bags, 2 Carry-ons) - {formData.airportTransferType === 'Roundtrip' ? '500 DHS (~$136) Roundtrip' : '250 DHS (~$68) per way'}</option>
+                      <option value="Mercedes V Class">Mercedes V Class (4 Pax, 4 Bags, 2 Carry-ons) - {formData.airportTransferType === 'Roundtrip' ? '550 DHS (~$150) Roundtrip' : '275 DHS (~$75) per way'}</option>
+                    </select>
+                    <p className="form-subtext" style={{ marginTop: '8px', fontSize: '11.5px', color: '#665A5E' }}>
+                      *Bags refer to standard check-in suitcases (24 inches each).
+                    </p>
+                  </div>
+                </>
               )}
 
               <div className="form-field-group full-width" style={{ marginTop: '1.5rem' }}>
@@ -479,8 +497,8 @@ Looking forward to your confirmation.`);
                 <div className="summary-divider" />
                 <div className="summary-data-block">
                   <span className="summary-lbl">AIRPORT TRANSFER</span>
-                  <div className="summary-main-val">{formData.airportTransferVehicle}</div>
-                  <div className="summary-sub-val" style={{ color: '#EAE0D0' }}>{vehiclePrices[formData.airportTransferVehicle]} AED (One Way)</div>
+                  <div className="summary-main-val">{formData.airportTransferVehicle} ({formData.airportTransferType})</div>
+                  <div className="summary-sub-val" style={{ color: '#EAE0D0' }}>{transferPrice} AED</div>
                 </div>
               </>
             )}
